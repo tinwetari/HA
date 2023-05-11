@@ -21,42 +21,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 sensor:
-  - platform: template
-    sensors:
-      jesus_presence:
-        friendly_name: "Jesus"
-        value_template: >-
-          {% if is_state("person.jesus", "home") %}
-            home
-          {% else %}
-            away
-          {% endif %}
-
-  - platform: history_stats
-    name: Jesus - Time at home
-    entity_id: sensor.jesus_presence
-    state: "home"
-    type: time
-    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
-    end: "{{ now() }}"
-
-  - platform: history_stats
-    name: Jesus - Time away
-    entity_id: sensor.jesus_presence
-    state: "away"
-    type: time
-    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
-    end: "{{ now() }}"
-
-  - platform: template
-    sensors:
-      peloton_state:
-        value_template: >-
-          {% if is_state("sensor.jesus_on_peloton_cadence_current","0") %}
-            off
-          {% else %}
-            on
-          {% endif %}
+  #time transformations
 
   - platform: template
     sensors:
@@ -86,6 +51,36 @@ sensor:
             {{ ct }} min
           {% endif %}
 
+  #presence
+  - platform: template
+    sensors:
+      jesus_presence:
+        friendly_name: "Jesus"
+        value_template: >-
+          {% if is_state("person.jesus", "home") %}
+            home
+          {% else %}
+            away
+          {% endif %}
+
+  - platform: history_stats
+    name: Jesus - Time at home
+    entity_id: sensor.jesus_presence
+    state: "home"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: Jesus - Time away
+    entity_id: sensor.jesus_presence
+    state: "away"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  #sky_q
+
   - platform: template
     sensors:
       sky_q_on:
@@ -96,6 +91,18 @@ sensor:
             off
           {% endif %}
 
+  #peloton
+  - platform: template
+    sensors:
+      peloton_state:
+        value_template: >-
+          {% if is_state("sensor.jesus_on_peloton_cadence_current","0") %}
+            off
+          {% else %}
+            on
+          {% endif %}
+
+#lights, light groups
 light:
   - platform: group
     name: Living Room
@@ -117,6 +124,7 @@ light:
       - light.ceiling
       - light.floor_lamp
 
+#vacuum cleaner
 camera:
   - platform: xiaomi_cloud_map_extractor
     host: 192.168.0.46
