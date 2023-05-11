@@ -102,7 +102,7 @@ sensor:
             on
           {% endif %}
 
-#lights, light groups
+#lights
 light:
   - platform: group
     name: Living Room
