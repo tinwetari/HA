@@ -7,7 +7,7 @@
       "title": "",
       "views": [
         {
-          "theme": "Backend-selected",
+          "theme": "noctis",
           "path": "default_view",
           "title": "Home",
           "badges": [],
@@ -68,8 +68,8 @@
                     },
                     {
                       "layout": "name_state",
-                      "name": "{{ now().strftime('%A') }} ",
-                      "state": "{{ now().day }}'{{ now().strftime('%B') }}",
+                      "name": "{{ states('sensor.dayoftheweek')}} ",
+                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
                       "styles": {
                         "button": {
                           "width": "200px",
@@ -122,9 +122,16 @@
                   "type": "custom:paper-buttons-row",
                   "buttons": [
                     {
-                      "entity": "input_boolean.mode_silencieux",
-                      "layout": "icon",
-                      "name": "Silence",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_off",
+                        "target": {
+                          "entity_id": "light.all"
+                        }
+                      },
+                      "data": {},
+                      "entity": "light.all",
+                      "name": false,
                       "style": {
                         "button": {
                           "width": "42px",
@@ -211,7 +218,7 @@
                       "name": "Settings",
                       "tap_action": {
                         "action": "navigate",
-                        "navigation_path": "/lovelace/settings"
+                        "navigation_path": "/config/dashboard"
                       },
                       "style": {
                         "button": {
@@ -321,18 +328,15 @@
                               "type": "conditional",
                               "conditions": [
                                 {
-                                  "entity": "media_player.spotify_kaputron",
-                                  "state": "off"
+                                  "entity": "media_player.sky_q",
+                                  "state": "on"
                                 }
                               ],
                               "card": {
                                 "type": "custom:paper-buttons-row",
                                 "buttons": [
                                   {
-                                    "entity": "switch.deezer",
-                                    "icon": "mdi:music",
-                                    "layout": "icon_name",
-                                    "name": "Flow Deezer",
+                                    "icon": "mdi:television",
                                     "state_styles": {
                                       "off": {
                                         "button": {
@@ -371,17 +375,16 @@
                               "type": "conditional",
                               "conditions": [
                                 {
-                                  "entity": "media_player.spotify_kaputron",
+                                  "entity": "media_player.sky_q",
                                   "state_not": "off"
                                 }
                               ],
                               "card": {
                                 "type": "custom:mini-media-player",
-                                "volume_stateless": true,
-                                "name": "Salon",
+                                "volume_stateless": false,
                                 "group": false,
                                 "volume_step": "3",
-                                "entity": "media_player.spotify_kaputron",
+                                "entity": "media_player.sky_q",
                                 "sound_mode": "full",
                                 "artwork": "full-cover",
                                 "toggle_power": false,
@@ -390,7 +393,7 @@
                                   "name": true,
                                   "source": true
                                 },
-                                "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n  position: absolute !important;\n}  .flex {\n  display: block;\n  {% if not is_state('media_player.musique','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  {% else %}\n  {% endif %}\n}  ha-card.--has-artwork .cover{\n  opacity: 0.9;\n} .entity__info__media {\n  opacity: 1 !important;\n  padding-right: 16px;\n  overflow: hidden;\n  height: 4.4em;\n  height: 100%;\n} ha-card > div.mmp-player > div.mmp-player__core.flex > div.entity__icon {\n  {% if not is_state('media_player.musique','off') %}\n  display: none;\n  {% endif %}\n} ha-card > div.mmp-player > div.mmp-player__core.flex { } mmp-media-controls {\n  {% if not is_state('media_player.musique','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  flex-wrap: wrap-reverse !important;\n  {% endif %}\n} mmp-powerstrip  { } ha-card > div.mmp-player {\n  padding: 12px !important;\n  {% if not is_state('media_player.musique','off') %}\n  {% else %}\n  #display: none !important;\n  {% endif %}\n} ha-card > div.mmp-player {\n  {% if is_state_attr('media_player.salon','media_content_id', 'Bluetooth') %}\n  position: relative;\n  height: 20vh;\n  {% else %}\n  position: absolute;\n  align-self: flex-start;\n  height: 100%;\n  {% endif %}\n  background: radial-gradient(circle, rgba(255,255,255,0) 10%, rgba(0,0,0,0.6) 100%) !important;\n  font-size: 0.9em !important;\n} ha-card > div.mmp-player > div.mmp-player__adds {\n  position: absolute;\n  bottom: 14px;\n  padding: 0 16px 0 0;\n} div.flex.mmp-media-controls__media {\n    margin-bottom: -5px !important;\n}\n"
+                                "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n  position: absolute !important;\n}  .flex {\n  display: block;\n  {% if not is_state('media_player.sky_q','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  {% else %}\n  {% endif %}\n}  ha-card.--has-artwork .cover{\n  opacity: 0.9;\n} .entity__info__media {\n  opacity: 1 !important;\n  padding-right: 16px;\n  overflow: hidden;\n  height: 4.4em;\n  height: 100%;\n} ha-card > div.mmp-player > div.mmp-player__core.flex > div.entity__icon {\n  {% if not is_state('media_player.sky_q','off') %}\n  display: none;\n  {% endif %}\n} ha-card > div.mmp-player > div.mmp-player__core.flex { } mmp-media-controls {\n  {% if not is_state('media_player.sky_q','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  flex-wrap: wrap-reverse !important;\n  {% endif %}\n} mmp-powerstrip  { } ha-card > div.mmp-player {\n  padding: 12px !important;\n  {% if not is_state('media_player.sky_q','off') %}\n  {% else %}\n  #display: none !important;\n  {% endif %}\n} ha-card > div.mmp-player {\n  {% if is_state_attr('media_player.salon','media_content_id', 'Bluetooth') %}\n  position: relative;\n  height: 20vh;\n  {% else %}\n  position: absolute;\n  align-self: flex-start;\n  height: 100%;\n  {% endif %}\n  background: radial-gradient(circle, rgba(255,255,255,0) 10%, rgba(0,0,0,0.6) 100%) !important;\n  font-size: 0.9em !important;\n} ha-card > div.mmp-player > div.mmp-player__adds {\n  position: absolute;\n  bottom: 14px;\n  padding: 0 16px 0 0;\n} div.flex.mmp-media-controls__media {\n    margin-bottom: -5px !important;\n}\n"
                               }
                             }
                           ],
@@ -472,7 +475,7 @@
                                 "icon": "mdi:plus",
                                 "tap_action": {
                                   "action": "navigate",
-                                  "navigation_path": "/lovelace/jesus"
+                                  "navigation_path": "/lovelace-dashboard/jesus"
                                 }
                               }
                             ]
@@ -481,31 +484,42 @@
                         {
                           "type": "entities",
                           "show_header_toggle": false,
-                          "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px !important;\n}\nha-card {\n  {% if is_state('device_tracker.ipad','home') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n",
+                          "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n  {% if is_state('vacuum.vacubot','cleaning') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n",
                           "entities": [
                             {
-                              "entity": "device_tracker.ipad",
+                              "entity": "vacuum.vacubot",
                               "state_color": false,
                               "name": "‎",
-                              "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding: 0.6em;\n}\n"
+                              "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding-right: 0.6em; \n}\nhui-generic-entity-row > div {\n  width: max-content !important;\n}\n"
                             },
                             {
                               "type": "section",
-                              "label": "iPad",
+                              "label": "Vacubot",
                               "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
                             },
                             {
-                              "entity": "sensor.ipad_geocoded_location",
-                              "name": "‎",
-                              "icon": "none",
-                              "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  display: none !important;\n  opacity: 0 !important;\n}\n"
+                              "type": "section",
+                              "label": "Living Room",
+                              "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -8px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 300\n}\n"
+                            },
+                            {
+                              "entity": "vacuum.vacubot",
+                              "type": "custom:multiple-entity-row",
+                              "icon": "mdi:battery",
+                              "attribute": "battery_level",
+                              "name": "Battery",
+                              "unit": "%",
+                              "style": {
+                                "hui-generic-entity-row$": "div {\n  display: none !important;\n}\n",
+                                ".": "hui-generic-entity-row  {\n  position: absolute !important;\n  top: -14px !important;\n  margin-left: -7px !important;\n  transform: scale(0.9, 0.9);\n}\n"
+                              }
                             }
                           ],
                           "footer": {
                             "type": "custom:paper-buttons-row",
                             "styles": {
                               "justify-content": "space-between;",
-                              "padding": "5px;",
+                              "padding": "8px;",
                               "width": "auto;",
                               "margin-top": "-6px;",
                               "margin-bottom": "0px;",
@@ -513,15 +527,44 @@
                             },
                             "buttons": [
                               {
-                                "name": "{{ states(\"sensor.ipad_battery_level\") }}%",
-                                "entity": "sensor.ipad_battery_level"
+                                "name": false,
+                                "icon": "mdi:play",
+                                "tap_action": {
+                                  "action": "call-service",
+                                  "service": "vacuum.start",
+                                  "target": {
+                                    "entity_id": "vacuum.vacubot"
+                                  }
+                                }
+                              },
+                              {
+                                "name": false,
+                                "icon": "mdi:pause",
+                                "tap_action": {
+                                  "action": "call-service",
+                                  "service": "vacuum.pause",
+                                  "target": {
+                                    "entity_id": "vacuum.vacubot"
+                                  }
+                                }
+                              },
+                              {
+                                "name": false,
+                                "icon": "mdi:home-map-marker",
+                                "tap_action": {
+                                  "action": "call-service",
+                                  "service": "vacuum.return_to_base",
+                                  "target": {
+                                    "entity_id": "vacuum.vacubot"
+                                  }
+                                }
                               },
                               {
                                 "name": false,
                                 "icon": "mdi:plus",
                                 "tap_action": {
                                   "action": "navigate",
-                                  "navigation_path": "/lovelace/kaari"
+                                  "navigation_path": "/lovelace-dashboard/vacuum"
                                 }
                               }
                             ]
@@ -535,227 +578,124 @@
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n"
             },
             {
-              "type": "custom:mini-graph-card",
-              "name": "Bedroom",
-              "entities": [
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
                 {
-                  "entity": "sensor.bedroom_hygrometer_temperature",
-                  "name": "temperature"
+                  "type": "custom:slider-button-card",
+                  "entity": "light.living_room",
+                  "slider": {
+                    "direction": "left-right",
+                    "background": "gradient",
+                    "use_state_color": true,
+                    "use_percentage_bg_opacity": true,
+                    "show_track": false,
+                    "toggle_on_click": false,
+                    "force_square": false
+                  },
+                  "show_name": true,
+                  "show_state": false,
+                  "compact": true,
+                  "icon": {
+                    "show": true,
+                    "use_state_color": false,
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:sofa-single"
+                  },
+                  "action_button": {
+                    "show": false
+                  },
+                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
                 },
                 {
-                  "entity": "sensor.bedroom_hygrometer_humidity",
-                  "name": "humidity",
-                  "y_axis": "secondary",
-                  "color": "lightblue"
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "position": "absolute;",
+                    "top": "0;",
+                    "right": "0;"
+                  },
+                  "buttons": [
+                    {
+                      "icon": "mdi:plus",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace-dashboard/living-room"
+                      },
+                      "styles": {
+                        "icon": {
+                          "--mdc-icon-size": "34px",
+                          "margin": "1px"
+                        }
+                      }
+                    }
+                  ]
                 }
               ],
-              "show": {
-                "labels": false,
-                "icon": false,
-                "extrema": true
-              },
-              "hours_to_show": 148,
-              "smoothing": false,
-              "view_layout": {
-                "position": "main"
-              }
-            },
-            {
-              "type": "custom:mini-graph-card",
-              "name": "Living Room",
-              "entities": [
-                {
-                  "entity": "sensor.living_room_hygrometer_temperature",
-                  "name": "temperature"
-                },
-                {
-                  "entity": "sensor.living_room_hygrometer_humidity",
-                  "name": "humidity",
-                  "y_axis": "secondary",
-                  "color": "lightblue"
-                }
-              ],
-              "show": {
-                "labels": false,
-                "icon": false,
-                "extrema": true
-              },
-              "hours_to_show": 148,
-              "smoothing": false,
-              "view_layout": {
-                "position": "main"
-              }
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  border-radius: 26px;\n}\n"
             },
             {
               "type": "custom:vertical-stack-in-card",
               "cards": [
                 {
-                  "type": "horizontal-stack",
-                  "cards": [
+                  "type": "custom:slider-button-card",
+                  "entity": "light.bedroom",
+                  "slider": {
+                    "direction": "left-right",
+                    "background": "gradient",
+                    "use_state_color": true,
+                    "use_percentage_bg_opacity": true,
+                    "show_track": false,
+                    "toggle_on_click": false,
+                    "force_square": false
+                  },
+                  "show_name": true,
+                  "show_state": false,
+                  "compact": true,
+                  "icon": {
+                    "show": true,
+                    "use_state_color": false,
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:bed"
+                  },
+                  "action_button": {
+                    "mode": "toggle",
+                    "icon": "mdi:power",
+                    "show": false,
+                    "show_spinner": true,
+                    "tap_action": {
+                      "action": "toggle"
+                    }
+                  },
+                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+                },
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "position": "absolute;",
+                    "top": "0;",
+                    "right": "0;"
+                  },
+                  "buttons": [
                     {
-                      "type": "grid",
-                      "square": true,
-                      "columns": 2,
-                      "cards": [
-                        {
-                          "type": "custom:vertical-stack-in-card",
-                          "cards": [
-                            {
-                              "type": "custom:weather-card",
-                              "entity": "weather.forecast_home",
-                              "number_of_forecasts": "3",
-                              "current": false,
-                              "details": false,
-                              "style": "ha-card { \n  #margin: 12% 0 2% !important;\n  background: rgba(0,0,0,0);\n  box-shadow: none;\n  padding: 0 !important;\n  font-size: 12px;\n}\ndiv.precipitation {\n  display: none;\n}\ndiv.precipitation_probability {\n  display: none;\n}\ni.icon {\n  transform: scale(0.17);\n  transform-origin: 0 19.5%;\n  margin-left: -1.4em !important;\n  position: absolute;\n  top: -18px;\n  #right: 0;\n  padding: 0;\n  #background-size: 75% !important;\n  height: 240% !important;\n  width: 240% !important;\n}\n.dayname:after {\n  content:'';\n  height: 3.4em;\n  width: 3.5em;\n  display: block;\n  margin-top: -20px;\n}\n.dayname {\n  margin-top: -6px\n}\ndiv.day {\n  border-right: 0.06em solid rgb(26,137,245,0.3);\n}\ndiv.lowTemp {\n  margin-top: -10px;\n}\n",
-                              "forecast": true,
-                              "hourly_forecast": false
-                            },
-                            {
-                              "type": "custom:atomic-calendar-revive",
-                              "entities": [
-                                {
-                                  "entity": "calendar.my_calendar",
-                                  "color": "white",
-                                  "max_results": 12,
-                                  "icon": "mdi:calendar"
-                                },
-                                {
-                                  "entity": "calendar.birthdays",
-                                  "color": "white",
-                                  "icon": "mdi:calendar"
-                                },
-                                {
-                                  "entity": "calendar.holidays_in_united_kingdom",
-                                  "color": "white",
-                                  "icon": "mdi:party-popper"
-                                },
-                                {
-                                  "entity": "calendar.family",
-                                  "color": "white",
-                                  "icon": "mdi:calendar"
-                                }
-                              ],
-                              "firstDayOfWeek": 1,
-                              "refreshInterval": 60,
-                              "style": "ha-card { \n  width: 100%;\n  padding: 10px 14% 0 0   !important;\n  position: absolute;\n  bottom: 6%;\n  background: none !important;\n}\nha-card > div > table > tbody > tr.daywrap {\n  border-top: none;\n}\nha-card > div > table > tbody {\n  padding: 0px !important;\n}\nha-card > div > table {\n  margin-top: -10px !important;\n  animation: scroll 15s ease infinite;\n}\nha-card > div > table > tbody > tr > td {\n  padding-bottom: 20px !important;\n  padding-top: 2px !important;\n}\nha-card > div {\n  padding-top: 0.3em !important;\n  margin: 0 !important;\n}\ndiv.event-main {\n  width: 100% !important;\n  #white-space: nowrap !important;\n  #overflow: visible !important;\n  text-overflow: ellipsis !important;\n  height: 3em !important;\n}\nha-card > div > table > tbody {\n  font-size: 13px;\n  line-height: 18px;\n}\ndiv.relativeTime {\n  display: none;\n}\n.hoursHTML {\n  overflow: hidden;\n  position: absolute;\n  display: -webkit-box;\n -webkit-line-clamp: 1; /* number of lines to show */\n         line-clamp: 1; \n -webkit-box-orient: vertical;\n}\n.event-location {\n  display: none !important;\n}\ndiv.event-main {\n overflow: hidden;\n display: -webkit-box;\n -webkit-line-clamp: 2; /* number of lines to show */\n         line-clamp: 2; \n -webkit-box-orient: vertical;\n}\n@keyframes scroll {\n  0% { opacity: 0; transform: translateY(0); }\n  3% { opacity: 1; transform: translateY(0); }\n  20% { opacity: 1; transform: translateY(0); }\n  23% { opacity: 0; transform: translateY(0); }\n  26% { transform: translateY(calc(-25%)); opacity: 0;}\n  29% { transform: translateY(calc(-25%)); opacity: 1;}\n  46% { transform: translateY(calc(-25%)); opacity: 1;}\n  49% { transform: translateY(calc(-25%)); opacity: 0;}\n  52% { transform: translateY(calc(-50%)); opacity: 0;}\n  55% { transform: translateY(calc(-50%)); opacity: 1;}\n  72% { transform: translateY(calc(-50%)); opacity: 1;}\n  75% { transform: translateY(calc(-50%)); opacity: 0;}\n  78% { transform: translateY(calc(-75%)); opacity: 0;}\n  81% { transform: translateY(calc(-75%)); opacity: 1;}\n  97% { transform: translateY(calc(-75%)); opacity: 1;}\n  100% { transform: translateY(calc(-75%)); opacity: 0;}\n}\n",
-                              "showDate": false,
-                              "hideDuplicates": false,
-                              "hideFinishedEvents": true,
-                              "showCurrentEventLine": false,
-                              "showProgressBar": false,
-                              "showMonth": true,
-                              "showWeekDay": false,
-                              "showDescription": false,
-                              "disableEventLink": true,
-                              "showFullDayProgress": false,
-                              "showEventIcon": false,
-                              "showHiddenText": false,
-                              "showCalendarName": false,
-                              "showWeekNumber": false,
-                              "calShowDescription": false,
-                              "showLastCalendarWeek": false,
-                              "dimFinishedEvents": true,
-                              "disableCalLink": true,
-                              "disableCalLocationLink": true,
-                              "disableCalEventLink": "truemaxEventCount",
-                              "noEventsForNextDaysText": "No events in the next few days",
-                              "showLoader": false,
-                              "maxEventCount": 4,
-                              "cardHeight": "70px",
-                              "maxDaysToShow": 90,
-                              "showDatePerEvent": true
-                            }
-                          ],
-                          "style": "ha-card { \n  box-shadow: none;\n  height: 100% !important;\n  padding: 12% 7%;\n}\n"
-                        },
-                        {
-                          "type": "custom:vertical-stack-in-card",
-                          "cards": [
-                            {
-                              "type": "conditional",
-                              "conditions": [
-                                {
-                                  "entity": "media_player.spotify_kaputron",
-                                  "state": "off"
-                                }
-                              ],
-                              "card": {
-                                "type": "custom:paper-buttons-row",
-                                "buttons": [
-                                  {
-                                    "entity": "switch.deezer",
-                                    "icon": "mdi:music",
-                                    "layout": "icon_name",
-                                    "name": "Flow Deezer",
-                                    "state_styles": {
-                                      "off": {
-                                        "button": {
-                                          "position": "absolute;",
-                                          "top": "50%;",
-                                          "border-radius": "100%;",
-                                          "width": "42px",
-                                          "height": "42px",
-                                          "margin-top": "-46px",
-                                          "filter": "drop-shadow(0px 2px 2px rgba(0,0,0,0.2))",
-                                          "background": "var( --ha-card-background, var(--card-background-color, white) );",
-                                          "background-size": "140% 70%",
-                                          "background-repeat": "no-repeat",
-                                          "background-position": "50% 100%",
-                                          "background-color": "#3e4c69"
-                                        },
-                                        "icon": {
-                                          "margin-top": "44px"
-                                        },
-                                        "name": {
-                                          "margin-top": "20px",
-                                          "width": "100px"
-                                        }
-                                      },
-                                      "on": {
-                                        "button": {
-                                          "display": "none;"
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "type": "conditional",
-                              "conditions": [
-                                {
-                                  "entity": "media_player.spotify_kaputron",
-                                  "state_not": "off"
-                                }
-                              ],
-                              "card": {
-                                "type": "custom:mini-media-player",
-                                "volume_stateless": true,
-                                "name": "Salon",
-                                "group": false,
-                                "volume_step": "3",
-                                "entity": "media_player.spotify_kaputron",
-                                "sound_mode": "full",
-                                "artwork": "full-cover",
-                                "toggle_power": false,
-                                "source": "icon",
-                                "hide": {
-                                  "name": true,
-                                  "source": true
-                                },
-                                "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n  position: absolute !important;\n}  .flex {\n  display: block;\n  {% if not is_state('media_player.musique','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  {% else %}\n  {% endif %}\n}  ha-card.--has-artwork .cover{\n  opacity: 0.9;\n} .entity__info__media {\n  opacity: 1 !important;\n  padding-right: 16px;\n  overflow: hidden;\n  height: 4.4em;\n  height: 100%;\n} ha-card > div.mmp-player > div.mmp-player__core.flex > div.entity__icon {\n  {% if not is_state('media_player.musique','off') %}\n  display: none;\n  {% endif %}\n} ha-card > div.mmp-player > div.mmp-player__core.flex { } mmp-media-controls {\n  {% if not is_state('media_player.musique','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  flex-wrap: wrap-reverse !important;\n  {% endif %}\n} mmp-powerstrip  { } ha-card > div.mmp-player {\n  padding: 12px !important;\n  {% if not is_state('media_player.musique','off') %}\n  {% else %}\n  #display: none !important;\n  {% endif %}\n} ha-card > div.mmp-player {\n  {% if is_state_attr('media_player.salon','media_content_id', 'Bluetooth') %}\n  position: relative;\n  height: 20vh;\n  {% else %}\n  position: absolute;\n  align-self: flex-start;\n  height: 100%;\n  {% endif %}\n  background: radial-gradient(circle, rgba(255,255,255,0) 10%, rgba(0,0,0,0.6) 100%) !important;\n  font-size: 0.9em !important;\n} ha-card > div.mmp-player > div.mmp-player__adds {\n  position: absolute;\n  bottom: 14px;\n  padding: 0 16px 0 0;\n} div.flex.mmp-media-controls__media {\n    margin-bottom: -5px !important;\n}\n"
-                              }
-                            }
-                          ],
-                          "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n\n} \n"
+                      "icon": "mdi:plus",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace-dashboard/bedroom"
+                      },
+                      "styles": {
+                        "icon": {
+                          "--mdc-icon-size": "34px",
+                          "margin": "1px"
                         }
-                      ]
+                      }
                     }
                   ]
                 }
               ],
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n}\n.type-custom-vertical-stack-in-card {\n  overflow: visible !important;\n}\n"
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  outline-right: 10px solid blue !important;\n  box-shadow: inset -1px 0px 0px 0px var(--ha-card-background) !important;\n  z-index: 1;\n  pointer-events: none;\n  border-radius: 26px;\n}\n"
             }
           ]
         },
@@ -771,7 +711,7 @@
               "title": "Welcome to our home",
               "subtitle": "From this dashboard you can control most smart features of the 🏡 house like the lights or even the media.\n\nIt is {{ now().hour }}:{{ now().minute }} and {{state_attr('weather.forecast_home', 'temperature') }}°C and {{states('weather.forecast_home') }} in London. \n{%- set ns = namespace (z=[]) %} {%- for i in  state_attr('weather.forecast_home_hourly','forecast') %} {%- if i.condition == 'rainy' %} {% set ns.z = ns.z + [(as_timestamp(i.datetime) | timestamp_custom('%-I%p')) ] %} {% endif %}{%-endfor%} {%- if ns.z|length > 0 %}\n\nIt is forecasted to rain at {% for x in ns.z %}\n{%- if ns.z|length > 1 %}\n  {%- if loop.last %} and {% endif -%}\n{% endif -%}\n{{ x }}\n{%- if ns.z|length > 2 %}\n  {%- if loop.index+1 < (ns.z|length) %}, {% endif -%}\n{% endif -%}\n{% endfor %}.\n{% else -%}\nIt does not look like it will rain soon.\n {% endif -%}\n",
               "view_layout": {
-                "position": "sidebar"
+                "position": "main"
               }
             },
             {
@@ -816,7 +756,7 @@
               ],
               "alignment": "center",
               "view_layout": {
-                "position": "sidebar"
+                "position": "main"
               }
             },
             {
@@ -858,7 +798,7 @@
               "dimFinishedEvents": true,
               "maxDaysToShow": 2,
               "view_layout": {
-                "position": "sidebar"
+                "position": "main"
               }
             },
             {
@@ -897,6 +837,9 @@
                 "info": "scroll",
                 "source": "full",
                 "volume_stateless": false
+              },
+              "view_layout": {
+                "position": "main"
               }
             },
             {
@@ -1119,11 +1062,9 @@
               "show": {
                 "labels": false,
                 "icon": false,
-                "graph": "bar"
+                "graph": "bar",
+                "smooth": false
               },
-              "hours_to_show": 168,
-              "group_by": "date",
-              "aggregate_func": "max",
               "font_size": 75,
               "font_size_header": 10,
               "lower_bound": 0
@@ -1198,7 +1139,7 @@
                 }
               ],
               "view_layout": {
-                "position": "sidebar"
+                "position": "main"
               }
             },
             {
@@ -1285,7 +1226,10 @@
                     "position": "sidebar"
                   }
                 }
-              ]
+              ],
+              "view_layout": {
+                "position": "main"
+              }
             },
             {
               "type": "custom:mushroom-chips-card",
@@ -1302,7 +1246,7 @@
               ],
               "alignment": "end",
               "view_layout": {
-                "position": "sidebar"
+                "position": "main"
               }
             },
             {
@@ -1329,7 +1273,1598 @@
                 "name": false,
                 "icon": false
               },
+              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n",
+              "view_layout": {
+                "position": "main"
+              }
+            },
+            {
+              "type": "custom:mini-graph-card",
+              "name": "Living Room",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_hygrometer_temperature",
+                  "name": "temperature"
+                },
+                {
+                  "entity": "sensor.living_room_hygrometer_humidity",
+                  "name": "humidity",
+                  "y_axis": "secondary",
+                  "color": "lightblue"
+                }
+              ],
+              "show": {
+                "labels": false,
+                "icon": false,
+                "extrema": true
+              },
+              "hours_to_show": 148,
+              "smoothing": false,
+              "view_layout": {
+                "position": "main"
+              }
+            },
+            {
+              "type": "custom:mini-graph-card",
+              "name": "Bedroom",
+              "entities": [
+                {
+                  "entity": "sensor.bedroom_hygrometer_temperature",
+                  "name": "temperature"
+                },
+                {
+                  "entity": "sensor.bedroom_hygrometer_humidity",
+                  "name": "humidity",
+                  "y_axis": "secondary",
+                  "color": "lightblue"
+                }
+              ],
+              "show": {
+                "labels": false,
+                "icon": false,
+                "extrema": true
+              },
+              "hours_to_show": 148,
+              "smoothing": false,
+              "view_layout": {
+                "position": "main"
+              }
+            }
+          ]
+        },
+        {
+          "theme": "noctis",
+          "icon": "",
+          "path": "jesus",
+          "title": "Jesus",
+          "type": "sidebar",
+          "subview": true,
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:mini-graph-card",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_hygrometer_temperature",
+                  "color": "var(--accent-color)"
+                }
+              ],
+              "hours_to_show": 24,
+              "hour24": true,
+              "animate": true,
+              "update_interval": 30,
+              "aggregate_func": "avg",
+              "line_width": 1,
+              "bar_spacing": 10,
+              "height": 70,
+              "group": true,
+              "show": {
+                "labels": false,
+                "fill": false,
+                "state": false,
+                "name": false,
+                "icon": false
+              },
               "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "justify-content": "space-between",
+                    "background": "none",
+                    "margin": "34px 10px 8px"
+                  },
+                  "buttons": [
+                    {
+                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
+                      "styles": {
+                        "name": {
+                          "font-weight": 300,
+                          "font-size": "40px",
+                          "letter-spacing": "-1px",
+                          "margin-left": "2px",
+                          "position": "relative",
+                          "left": "-10px"
+                        },
+                        "button": {
+                          "pointer-events": "none"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "name_state",
+                      "name": "{{ states('sensor.dayoftheweek')}} ",
+                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
+                      "styles": {
+                        "button": {
+                          "width": "200px",
+                          "height": "32px",
+                          "pointer-events": "none",
+                          "position": "relative"
+                        },
+                        "name": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "top": 0,
+                          "font-weight": 400,
+                          "white-space": "nowrap"
+                        },
+                        "state": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "bottom": 0,
+                          "font-weight": 600,
+                          "white-space": "nowrap"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
+                  "alignment": "end",
+                  "chips": [
+                    {
+                      "type": "weather",
+                      "entity": "weather.forecast_home",
+                      "show_conditions": false,
+                      "show_temperature": true
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.living_room_hygrometer_temperature",
+                      "icon": "mdi:home-thermometer-outline"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_off",
+                        "target": {
+                          "entity_id": "light.all"
+                        }
+                      },
+                      "data": {},
+                      "entity": "light.all",
+                      "name": false,
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:window-shutter",
+                      "name": "Volets",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/volets"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cart-outline",
+                      "name": "Liste",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/liste"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:video",
+                      "layout": "icon",
+                      "name": "Sécurité",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/securite"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cog",
+                      "name": "Réglages",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/reglages"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important;\n  \n}\n"
+                }
+              ],
+              "style": "ha-card { \n  \n  background: none !important;\n  margin: 15px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "binary_sensor.sonnette_motion",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "custom:vertical-stack-in-card",
+                "cards": [
+                  {
+                    "type": "custom:frigate-card",
+                    "cameras": [
+                      {
+                        "camera_entity": "camera.sonnette_pir",
+                        "live_provider": "frigate-jsmpeg",
+                        "title": "Entrée"
+                      }
+                    ],
+                    "menu": {
+                      "buttons": {
+                        "frigate": {
+                          "enabled": false
+                        }
+                      },
+                      "style": "none"
+                    }
+                  }
+                ],
+                "style": "ha-card {\n  margin: 15px 20px;\n  overflow: hidden !important;\n  border-radius: 24px !important;\n}\n            \n"
+              }
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "icon": "mdi:account",
+                      "layout": "icon|name",
+                      "name": "Jesus",
+                      "style": {
+                        "name": {
+                          "margin-left": "18px",
+                          "font-size": "18px",
+                          "font-weight": 600
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:close",
+                      "layout": "icon",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/"
+                      },
+                      "style": {
+                        "icon": {
+                          "--mdc-icon-size": "34px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  margin-top: -6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n"
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "entity": "sensor.total_steps",
+                  "type": "custom:multiple-entity-row",
+                  "name": "Activity",
+                  "state_header": "steps",
+                  "secondary_info": "Today",
+                  "unit": false,
+                  "entities": [
+                    {
+                      "entity": "sensor.weight",
+                      "name": "weight"
+                    },
+                    {
+                      "entity": "sensor.sleep_h",
+                      "name": "sleep"
+                    }
+                  ]
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "entity": "sensor.jesus_time_away",
+                  "type": "custom:multiple-entity-row",
+                  "name": "Presence",
+                  "state_header": "Away",
+                  "secondary_info": "Last 24h",
+                  "entities": [
+                    {
+                      "entity": "sensor.jesus_time_at_home",
+                      "name": "Home"
+                    }
+                  ]
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "entity": "sensor.poco_f3_battery_level",
+                  "type": "custom:multiple-entity-row",
+                  "name": "Phone",
+                  "state_header": "Battery"
+                },
+                {
+                  "entity": "sensor.macbook_internal_battery_level",
+                  "type": "custom:multiple-entity-row",
+                  "name": "Mackbook",
+                  "state_header": "Battery"
+                },
+                {
+                  "entity": "sensor.ipad_battery_level",
+                  "type": "custom:multiple-entity-row",
+                  "name": "iPad",
+                  "state_header": "Battery"
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "entity": "sensor.poco_f3_geocoded_location",
+                  "type": "custom:multiple-entity-row",
+                  "name": "Location",
+                  "styles": {
+                    "text-align": "right"
+                  }
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "type": "custom:vertical-stack-in-card",
+                  "cards": [
+                    {
+                      "type": "history-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.jesus_presence",
+                          "name": "Presence"
+                        }
+                      ],
+                      "hours_to_show": 24,
+                      "refresh_interval": 0,
+                      "style": "ha-card { \n  margin: -10px -10px 6px;\n}\n"
+                    },
+                    {
+                      "type": "map",
+                      "entities": [
+                        {
+                          "entity": "person.jesus"
+                        }
+                      ],
+                      "dark_mode": false,
+                      "style": "ha-card { \n  border-radius: 28px !important;\n\n}\n"
+                    }
+                  ]
+                }
+              ],
+              "style": "ha-card {\n  margin: 14px 10px 28px !important;\n}\n"
+            }
+          ]
+        },
+        {
+          "type": "sidebar",
+          "subview": true,
+          "title": "Living Room",
+          "path": "living-room",
+          "theme": "noctis",
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:mini-graph-card",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_hygrometer_temperature",
+                  "color": "var(--accent-color)"
+                }
+              ],
+              "hours_to_show": 24,
+              "hour24": true,
+              "animate": true,
+              "update_interval": 30,
+              "aggregate_func": "avg",
+              "line_width": 1,
+              "bar_spacing": 10,
+              "height": 70,
+              "group": true,
+              "show": {
+                "labels": false,
+                "fill": false,
+                "state": false,
+                "name": false,
+                "icon": false
+              },
+              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "justify-content": "space-between",
+                    "background": "none",
+                    "margin": "34px 10px 8px"
+                  },
+                  "buttons": [
+                    {
+                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
+                      "styles": {
+                        "name": {
+                          "font-weight": 300,
+                          "font-size": "40px",
+                          "letter-spacing": "-1px",
+                          "margin-left": "2px",
+                          "position": "relative",
+                          "left": "-10px"
+                        },
+                        "button": {
+                          "pointer-events": "none"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "name_state",
+                      "name": "{{ states('sensor.dayoftheweek')}} ",
+                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
+                      "styles": {
+                        "button": {
+                          "width": "200px",
+                          "height": "32px",
+                          "pointer-events": "none",
+                          "position": "relative"
+                        },
+                        "name": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "top": 0,
+                          "font-weight": 400,
+                          "white-space": "nowrap"
+                        },
+                        "state": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "bottom": 0,
+                          "font-weight": 600,
+                          "white-space": "nowrap"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
+                  "alignment": "end",
+                  "chips": [
+                    {
+                      "type": "weather",
+                      "entity": "weather.forecast_home",
+                      "show_conditions": false,
+                      "show_temperature": true
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.living_room_hygrometer_temperature",
+                      "icon": "mdi:home-thermometer-outline"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_off",
+                        "target": {
+                          "entity_id": "light.all"
+                        }
+                      },
+                      "data": {},
+                      "entity": "light.all",
+                      "name": false,
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:window-shutter",
+                      "name": "Volets",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/volets"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cart-outline",
+                      "name": "Liste",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/liste"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:video",
+                      "layout": "icon",
+                      "name": "Sécurité",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/securite"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cog",
+                      "name": "Réglages",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/reglages"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important;\n  \n}\n"
+                }
+              ],
+              "style": "ha-card { \n  \n  background: none !important;\n  margin: 15px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "icon": "mdi:sofa",
+                      "layout": "icon|name",
+                      "name": "Living Room",
+                      "style": {
+                        "name": {
+                          "margin-left": "18px",
+                          "font-size": "18px",
+                          "font-weight": 600
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:close",
+                      "layout": "icon",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/"
+                      },
+                      "style": {
+                        "icon": {
+                          "--mdc-icon-size": "34px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  margin-top: -6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n"
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "type": "custom:light-entity-card",
+                  "entity": "light.living_room",
+                  "shorten_cards": false,
+                  "consolidate_entities": true,
+                  "child_card": true,
+                  "hide_header": false,
+                  "header": "All lights",
+                  "color_wheel": true,
+                  "persist_features": true,
+                  "brightness": true,
+                  "color_temp": true,
+                  "white_value": false,
+                  "color_picker": true,
+                  "smooth_color_wheel": true,
+                  "speed": false,
+                  "intensity": false,
+                  "force_features": false,
+                  "show_slider_percent": false,
+                  "full_width_sliders": true,
+                  "brightness_icon": "weather-sunny",
+                  "white_icon": "file-word-box",
+                  "temperature_icon": "thermometer",
+                  "speed_icon": "speedometer",
+                  "intensity_icon": "transit-connection-horizontal",
+                  "effects_list": false,
+                  "style": "ha-card {\n  margin: 14px 8px !important;\n}\nha-card > div.light-entity-card__header > div.light-entity-card__title {\n  font-size: 14px !important;\n  font-weight: 500;\n}\n"
+                },
+                {
+                  "type": "custom:rgb-light-card",
+                  "entity": "light.living_room",
+                  "justify": "around",
+                  "size": 23,
+                  "colors": [
+                    {
+                      "color_temp": 153,
+                      "brightness": 255,
+                      "icon_color": "white"
+                    },
+                    {
+                      "color_temp": 357,
+                      "brightness": 255
+                    },
+                    {
+                      "color_temp": 451,
+                      "brightness": 255
+                    },
+                    {
+                      "rgb_color": [
+                        255,
+                        170,
+                        0
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, rgb(255,170,0), rgb(255,225,165))"
+                    },
+                    {
+                      "rgb_color": [
+                        255,
+                        0,
+                        0
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, red, rgb(255,100,100))"
+                    },
+                    {
+                      "rgb_color": [
+                        244,
+                        38,
+                        255
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, rgb(244,38,255), rgb(255,138,255))"
+                    },
+                    {
+                      "rgb_color": [
+                        0,
+                        222,
+                        255
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, rgb(0,222,255), rgb(140,240,255))"
+                    },
+                    {
+                      "rgb_color": [
+                        0,
+                        0,
+                        255
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, blue, rgb(100,100,255))"
+                    }
+                  ],
+                  "style": "* {\n  margin-bottom: 6px !important;\n}\n"
+                },
+                {
+                  "type": "section",
+                  "label": "Home Cinema"
+                },
+                {
+                  "entity": "media_player.sky_q",
+                  "icon": "mdi:set-top-box",
+                  "type": "custom:mini-media-player",
+                  "hide": {
+                    "volume": true,
+                    "source": true
+                  },
+                  "artwork": "material"
+                },
+                {
+                  "type": "section",
+                  "label": "Lights"
+                },
+                {
+                  "entity": "light.floor_lamp",
+                  "icon": "mdi:floor-lamp"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "entity": "light.ceiling",
+                  "icon": "mdi:ceiling-light",
+                  "name": "Ceiling"
+                },
+                {
+                  "type": "section",
+                  "label": "Gadgets"
+                },
+                {
+                  "entity": "sensor.living_room_hygrometer_temperature",
+                  "name": "Temperature",
+                  "icon": "mdi:home-thermometer-outline"
+                },
+                {
+                  "entity": "sensor.living_room_hygrometer_humidity",
+                  "name": "Humidity",
+                  "icon": "mdi:home-flood"
+                },
+                {
+                  "entity": "media_player.nest_hub",
+                  "icon": "mdi:google"
+                },
+                {
+                  "entity": "vacuum.vacubot",
+                  "name": "Vacubot",
+                  "icon": "mdi:robot-vacuum"
+                },
+                {
+                  "entity": "sensor.peloton_state",
+                  "icon": "mdi:bike-fast",
+                  "name": "Peloton"
+                },
+                {
+                  "entity": "sensor.hp_envy_photo_6200_series_black_ink",
+                  "icon": "mdi:printer-outline",
+                  "name": "HP Envy 6200 Black ink"
+                },
+                {
+                  "entity": "sensor.mosquito_repellent_104f_battery",
+                  "icon": "mdi:butterfly",
+                  "name": "Mosquito Repellent"
+                }
+              ],
+              "style": "ha-card {\n  margin: 14px 10px 28px !important;\n}\n"
+            }
+          ]
+        },
+        {
+          "type": "sidebar",
+          "subview": true,
+          "title": "Bedroom",
+          "path": "bedroom",
+          "theme": "noctis",
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:mini-graph-card",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_hygrometer_temperature",
+                  "color": "var(--accent-color)"
+                }
+              ],
+              "hours_to_show": 24,
+              "hour24": true,
+              "animate": true,
+              "update_interval": 30,
+              "aggregate_func": "avg",
+              "line_width": 1,
+              "bar_spacing": 10,
+              "height": 70,
+              "group": true,
+              "show": {
+                "labels": false,
+                "fill": false,
+                "state": false,
+                "name": false,
+                "icon": false
+              },
+              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "justify-content": "space-between",
+                    "background": "none",
+                    "margin": "34px 10px 8px"
+                  },
+                  "buttons": [
+                    {
+                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
+                      "styles": {
+                        "name": {
+                          "font-weight": 300,
+                          "font-size": "40px",
+                          "letter-spacing": "-1px",
+                          "margin-left": "2px",
+                          "position": "relative",
+                          "left": "-10px"
+                        },
+                        "button": {
+                          "pointer-events": "none"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "name_state",
+                      "name": "{{ states('sensor.dayoftheweek')}} ",
+                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
+                      "styles": {
+                        "button": {
+                          "width": "200px",
+                          "height": "32px",
+                          "pointer-events": "none",
+                          "position": "relative"
+                        },
+                        "name": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "top": 0,
+                          "font-weight": 400,
+                          "white-space": "nowrap"
+                        },
+                        "state": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "bottom": 0,
+                          "font-weight": 600,
+                          "white-space": "nowrap"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
+                  "alignment": "end",
+                  "chips": [
+                    {
+                      "type": "weather",
+                      "entity": "weather.forecast_home",
+                      "show_conditions": false,
+                      "show_temperature": true
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.living_room_hygrometer_temperature",
+                      "icon": "mdi:home-thermometer-outline"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_off",
+                        "target": {
+                          "entity_id": "light.all"
+                        }
+                      },
+                      "data": {},
+                      "entity": "light.all",
+                      "name": false,
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:window-shutter",
+                      "name": "Volets",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/volets"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cart-outline",
+                      "name": "Liste",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/liste"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:video",
+                      "layout": "icon",
+                      "name": "Sécurité",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/securite"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cog",
+                      "name": "Réglages",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/reglages"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important;\n  \n}\n"
+                }
+              ],
+              "style": "ha-card { \n  \n  background: none !important;\n  margin: 15px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "icon": "mdi:bed",
+                      "layout": "icon|name",
+                      "name": "Bedroom",
+                      "style": {
+                        "name": {
+                          "margin-left": "18px",
+                          "font-size": "18px",
+                          "font-weight": 600
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:close",
+                      "layout": "icon",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/"
+                      },
+                      "style": {
+                        "icon": {
+                          "--mdc-icon-size": "34px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  margin-top: -6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n"
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "type": "custom:light-entity-card",
+                  "entity": "light.bedroom",
+                  "shorten_cards": false,
+                  "consolidate_entities": true,
+                  "child_card": true,
+                  "hide_header": false,
+                  "header": "All lights",
+                  "color_wheel": true,
+                  "persist_features": true,
+                  "brightness": true,
+                  "color_temp": true,
+                  "white_value": false,
+                  "color_picker": true,
+                  "smooth_color_wheel": true,
+                  "speed": false,
+                  "intensity": false,
+                  "force_features": false,
+                  "show_slider_percent": false,
+                  "full_width_sliders": true,
+                  "brightness_icon": "weather-sunny",
+                  "white_icon": "file-word-box",
+                  "temperature_icon": "thermometer",
+                  "speed_icon": "speedometer",
+                  "intensity_icon": "transit-connection-horizontal",
+                  "effects_list": false,
+                  "style": "ha-card {\n  margin: 14px 8px !important;\n}\nha-card > div.light-entity-card__header > div.light-entity-card__title {\n  font-size: 14px !important;\n  font-weight: 500;\n}\n"
+                },
+                {
+                  "type": "custom:rgb-light-card",
+                  "entity": "light.bedroom",
+                  "justify": "around",
+                  "size": 23,
+                  "colors": [
+                    {
+                      "color_temp": 153,
+                      "brightness": 255,
+                      "icon_color": "white"
+                    },
+                    {
+                      "color_temp": 357,
+                      "brightness": 255
+                    },
+                    {
+                      "color_temp": 451,
+                      "brightness": 255
+                    },
+                    {
+                      "rgb_color": [
+                        255,
+                        170,
+                        0
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, rgb(255,170,0), rgb(255,225,165))"
+                    },
+                    {
+                      "rgb_color": [
+                        255,
+                        0,
+                        0
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, red, rgb(255,100,100))"
+                    },
+                    {
+                      "rgb_color": [
+                        244,
+                        38,
+                        255
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, rgb(244,38,255), rgb(255,138,255))"
+                    },
+                    {
+                      "rgb_color": [
+                        0,
+                        222,
+                        255
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, rgb(0,222,255), rgb(140,240,255))"
+                    },
+                    {
+                      "rgb_color": [
+                        0,
+                        0,
+                        255
+                      ],
+                      "brightness": 255,
+                      "icon_color": "linear-gradient(15deg, blue, rgb(100,100,255))"
+                    }
+                  ],
+                  "style": "* {\n  margin-bottom: 6px !important;\n}\n"
+                },
+                {
+                  "type": "section",
+                  "label": "Lights"
+                },
+                {
+                  "entity": "light.bedside",
+                  "icon": "mdi:lamp-outline"
+                },
+                {
+                  "entity": "light.bedroom_ceiling",
+                  "icon": "mdi:ceiling-light"
+                },
+                {
+                  "type": "section",
+                  "label": "Gadgets"
+                },
+                {
+                  "entity": "sensor.bedroom_hygrometer_temperature",
+                  "name": "Temperature",
+                  "icon": "mdi:home-thermometer-outline"
+                },
+                {
+                  "entity": "sensor.bedroom_hygrometer_humidity",
+                  "name": "Humidity",
+                  "icon": "mdi:home-flood"
+                },
+                {
+                  "entity": "media_player.home_mini",
+                  "icon": "mdi:google",
+                  "type": "custom:mini-media-player",
+                  "artwork": "material",
+                  "hide": {
+                    "play_stop": false
+                  }
+                }
+              ],
+              "style": "ha-card {\n  margin: 14px 10px 28px !important;\n}\n"
+            }
+          ]
+        },
+        {
+          "title": "vacuum",
+          "path": "vacuum",
+          "type": "sidebar",
+          "subview": true,
+          "theme": "noctis",
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:mini-graph-card",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_hygrometer_temperature",
+                  "color": "var(--accent-color)"
+                }
+              ],
+              "hours_to_show": 24,
+              "hour24": true,
+              "animate": true,
+              "update_interval": 30,
+              "aggregate_func": "avg",
+              "line_width": 1,
+              "bar_spacing": 10,
+              "height": 70,
+              "group": true,
+              "show": {
+                "labels": false,
+                "fill": false,
+                "state": false,
+                "name": false,
+                "icon": false
+              },
+              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "justify-content": "space-between",
+                    "background": "none",
+                    "margin": "34px 10px 8px"
+                  },
+                  "buttons": [
+                    {
+                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
+                      "styles": {
+                        "name": {
+                          "font-weight": 300,
+                          "font-size": "40px",
+                          "letter-spacing": "-1px",
+                          "margin-left": "2px",
+                          "position": "relative",
+                          "left": "-10px"
+                        },
+                        "button": {
+                          "pointer-events": "none"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "name_state",
+                      "name": "{{ states('sensor.dayoftheweek')}} ",
+                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
+                      "styles": {
+                        "button": {
+                          "width": "200px",
+                          "height": "32px",
+                          "pointer-events": "none",
+                          "position": "relative"
+                        },
+                        "name": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "top": 0,
+                          "font-weight": 400,
+                          "white-space": "nowrap"
+                        },
+                        "state": {
+                          "position": "absolute",
+                          "left": "-10px",
+                          "bottom": 0,
+                          "font-weight": 600,
+                          "white-space": "nowrap"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
+                  "alignment": "end",
+                  "chips": [
+                    {
+                      "type": "weather",
+                      "entity": "weather.forecast_home",
+                      "show_conditions": false,
+                      "show_temperature": true
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.living_room_hygrometer_temperature",
+                      "icon": "mdi:home-thermometer-outline"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_off",
+                        "target": {
+                          "entity_id": "light.all"
+                        }
+                      },
+                      "data": {},
+                      "entity": "light.all",
+                      "name": false,
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:window-shutter",
+                      "name": "Volets",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/volets"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px",
+                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                          "border-radius": "100%"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cart-outline",
+                      "name": "Liste",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/liste"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:video",
+                      "layout": "icon",
+                      "name": "Sécurité",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/securite"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    },
+                    {
+                      "layout": "icon",
+                      "icon": "mdi:cog",
+                      "name": "Réglages",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace/reglages"
+                      },
+                      "style": {
+                        "button": {
+                          "width": "42px",
+                          "height": "42px"
+                        },
+                        "icon": {
+                          "margin-top": 0
+                        },
+                        "name": {
+                          "margin-top": "20px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important;\n  \n}\n"
+                }
+              ],
+              "style": "ha-card { \n  \n  background: none !important;\n  margin: 15px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:paper-buttons-row",
+                  "buttons": [
+                    {
+                      "icon": "mdi:robot-vacuum",
+                      "layout": "icon|name",
+                      "name": "Vacubot",
+                      "style": {
+                        "name": {
+                          "margin-left": "18px",
+                          "font-size": "18px",
+                          "font-weight": 600
+                        }
+                      }
+                    },
+                    {
+                      "icon": "mdi:close",
+                      "layout": "icon",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/"
+                      },
+                      "style": {
+                        "icon": {
+                          "--mdc-icon-size": "34px"
+                        }
+                      }
+                    }
+                  ],
+                  "style": "div.flex-box {\n  margin-top: -6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n"
+                },
+                {
+                  "type": "custom:xiaomi-vacuum-map-card",
+                  "entity": "vacuum.vacubot",
+                  "map_source": {
+                    "camera": "camera.xiaomi_cloud_map_extractor"
+                  },
+                  "map_locked": false,
+                  "calibration_source": {
+                    "camera": true
+                  },
+                  "vacuum_platform": "default",
+                  "style": "ha-card > div.controls-wrapper > div.vacuum-controls > div {\n  color: var(--map-card-internal-primary-color);\n} ha-card > div.controls-wrapper > div.map-controls-wrapper > div > div {\n  background: white;\n}\n"
+                }
+              ],
+              "style": "ha-card {\n  margin: 14px 10px 28px !important;\n}\n"
             }
           ]
         }
