@@ -410,6 +410,126 @@
               "type": "custom:vertical-stack-in-card",
               "cards": [
                 {
+                  "type": "custom:slider-button-card",
+                  "entity": "light.living_room",
+                  "slider": {
+                    "direction": "left-right",
+                    "background": "gradient",
+                    "use_state_color": true,
+                    "use_percentage_bg_opacity": true,
+                    "show_track": false,
+                    "toggle_on_click": false,
+                    "force_square": false
+                  },
+                  "show_name": true,
+                  "show_state": false,
+                  "compact": true,
+                  "icon": {
+                    "show": true,
+                    "use_state_color": false,
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:sofa-single"
+                  },
+                  "action_button": {
+                    "show": false
+                  },
+                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+                },
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "position": "absolute;",
+                    "top": "0;",
+                    "right": "0;"
+                  },
+                  "buttons": [
+                    {
+                      "icon": "mdi:plus",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace-dashboard/living-room"
+                      },
+                      "styles": {
+                        "icon": {
+                          "--mdc-icon-size": "34px",
+                          "margin": "1px"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
+                {
+                  "type": "custom:slider-button-card",
+                  "entity": "light.bedroom",
+                  "slider": {
+                    "direction": "left-right",
+                    "background": "gradient",
+                    "use_state_color": true,
+                    "use_percentage_bg_opacity": true,
+                    "show_track": false,
+                    "toggle_on_click": false,
+                    "force_square": false
+                  },
+                  "show_name": true,
+                  "show_state": false,
+                  "compact": true,
+                  "icon": {
+                    "show": true,
+                    "use_state_color": false,
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:bed"
+                  },
+                  "action_button": {
+                    "mode": "toggle",
+                    "icon": "mdi:power",
+                    "show": false,
+                    "show_spinner": true,
+                    "tap_action": {
+                      "action": "toggle"
+                    }
+                  },
+                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+                },
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "position": "absolute;",
+                    "top": "0;",
+                    "right": "0;"
+                  },
+                  "buttons": [
+                    {
+                      "icon": "mdi:plus",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace-dashboard/bedroom"
+                      },
+                      "styles": {
+                        "icon": {
+                          "--mdc-icon-size": "34px",
+                          "margin": "1px"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  outline-right: 10px solid blue !important;\n  box-shadow: inset -1px 0px 0px 0px var(--ha-card-background) !important;\n  z-index: 1;\n  pointer-events: none;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
+                {
                   "type": "horizontal-stack",
                   "cards": [
                     {
@@ -630,7 +750,7 @@
                           "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\n",
                           "entities": [
                             {
-                              "entity": "sensor.electricity_cost_today",
+                              "entity": "sensor.electricity_cost",
                               "icon": "mdi:home-lightning-bolt-outline",
                               "state_color": false,
                               "name": "‎",
@@ -693,126 +813,6 @@
                 }
               ],
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n\n#states > :last-child {\n  z-index: 10;\n}\n"
-            },
-            {
-              "type": "custom:vertical-stack-in-card",
-              "cards": [
-                {
-                  "type": "custom:slider-button-card",
-                  "entity": "light.living_room",
-                  "slider": {
-                    "direction": "left-right",
-                    "background": "gradient",
-                    "use_state_color": true,
-                    "use_percentage_bg_opacity": true,
-                    "show_track": false,
-                    "toggle_on_click": false,
-                    "force_square": false
-                  },
-                  "show_name": true,
-                  "show_state": false,
-                  "compact": true,
-                  "icon": {
-                    "show": true,
-                    "use_state_color": false,
-                    "tap_action": {
-                      "action": "more-info"
-                    },
-                    "icon": "mdi:sofa-single"
-                  },
-                  "action_button": {
-                    "show": false
-                  },
-                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
-                },
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "position": "absolute;",
-                    "top": "0;",
-                    "right": "0;"
-                  },
-                  "buttons": [
-                    {
-                      "icon": "mdi:plus",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace-dashboard/living-room"
-                      },
-                      "styles": {
-                        "icon": {
-                          "--mdc-icon-size": "34px",
-                          "margin": "1px"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  border-radius: 26px;\n}\n"
-            },
-            {
-              "type": "custom:vertical-stack-in-card",
-              "cards": [
-                {
-                  "type": "custom:slider-button-card",
-                  "entity": "light.bedroom",
-                  "slider": {
-                    "direction": "left-right",
-                    "background": "gradient",
-                    "use_state_color": true,
-                    "use_percentage_bg_opacity": true,
-                    "show_track": false,
-                    "toggle_on_click": false,
-                    "force_square": false
-                  },
-                  "show_name": true,
-                  "show_state": false,
-                  "compact": true,
-                  "icon": {
-                    "show": true,
-                    "use_state_color": false,
-                    "tap_action": {
-                      "action": "more-info"
-                    },
-                    "icon": "mdi:bed"
-                  },
-                  "action_button": {
-                    "mode": "toggle",
-                    "icon": "mdi:power",
-                    "show": false,
-                    "show_spinner": true,
-                    "tap_action": {
-                      "action": "toggle"
-                    }
-                  },
-                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
-                },
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "position": "absolute;",
-                    "top": "0;",
-                    "right": "0;"
-                  },
-                  "buttons": [
-                    {
-                      "icon": "mdi:plus",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace-dashboard/bedroom"
-                      },
-                      "styles": {
-                        "icon": {
-                          "--mdc-icon-size": "34px",
-                          "margin": "1px"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  outline-right: 10px solid blue !important;\n  box-shadow: inset -1px 0px 0px 0px var(--ha-card-background) !important;\n  z-index: 1;\n  pointer-events: none;\n  border-radius: 26px;\n}\n"
             }
           ]
         },
