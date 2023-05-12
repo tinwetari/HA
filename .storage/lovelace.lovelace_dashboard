@@ -581,6 +581,123 @@
               "type": "custom:vertical-stack-in-card",
               "cards": [
                 {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "grid",
+                      "square": true,
+                      "columns": 2,
+                      "cards": [
+                        {
+                          "type": "entities",
+                          "show_header_toggle": false,
+                          "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n\n  background-color: var(--background-color-2);\n\n}\n",
+                          "entities": [
+                            {
+                              "type": "section",
+                              "label": "London",
+                              "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: 12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
+                            },
+                            {
+                              "entity": "weather.forecast_home",
+                              "name": " ",
+                              "icon": false,
+                              "style": "\nhui-generic-entity-row {\n  position: absolute !important;\n  margin-bottom: 14px;\n  margin-left: -55px;\n  font-size: 40px;\n\n}\nhui-generic-entity-row > div {\n  width: max-content !important;\n}\n"
+                            },
+                            {
+                              "type": "custom:multiple-entity-row",
+                              "entity": "weather.forecast_home",
+                              "show_state": false,
+                              "name": false,
+                              "style": {
+                                "hui-generic-entity-row": "div {\n  display: none !important;\n}\n\nhui-generic-entity-row  {\n  position: absolute !important;\n  top: 50px !important;\n  margin-left: 5px !important;\n  transform: scale(0.9, 0.9);\n}\n"
+                              }
+                            },
+                            {
+                              "type": "custom:multiple-entity-row",
+                              "entity": "weather.forecast_home",
+                              "icon": false,
+                              "name": false,
+                              "style": {
+                                "hui-generic-entity-row": "hui-generic-entity-row  {\n  position: absolute !important;\n  margin-top: 80px !important;\n  margin-left: -50px !important;\n\n}\n"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "entities",
+                          "show_header_toggle": false,
+                          "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\n",
+                          "entities": [
+                            {
+                              "entity": "sensor.electricity_cost_today",
+                              "icon": "mdi:home-lightning-bolt-outline",
+                              "state_color": false,
+                              "name": "‎",
+                              "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding-right: 0.6em; \n}\nhui-generic-entity-row > div {\n  width: max-content !important;\n}\n"
+                            },
+                            {
+                              "type": "section",
+                              "label": "Electricity",
+                              "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
+                            },
+                            {
+                              "type": "custom:paper-buttons-row",
+                              "styles": {
+                                "justify-content": "flex-start",
+                                "align-items": "right",
+                                "display": "inline-block",
+                                "margin-top": "-12px"
+                              },
+                              "buttons": [
+                                {
+                                  "name": "Yesterday | {{ states(\"sensor.octopus_energy_electricity_21l3971511_1200042300642_previous_accumulative_consumption\") | round }} Wh",
+                                  "entity": "sensor.octopus_energy_electricity_21l3971511_1200042300642_previous_accumulative_consumption",
+                                  "icon": false,
+                                  "styles": {
+                                    "button": {
+                                      "margin-top": 0,
+                                      "font-size": "12px",
+                                      "opacity": 0.8,
+                                      "margin-bottom": "-10px"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "footer": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              "sensor.octopus_energy_electricity_21l3971511_1200042300642_previous_accumulative_consumption"
+                            ],
+                            "show": {
+                              "name": false,
+                              "icon": false,
+                              "state": false,
+                              "legend": false,
+                              "animate": true
+                            },
+                            "height": 160,
+                            "hours_to_show": 168,
+                            "value_factor": -10,
+                            "tap_action": "none",
+                            "y_axis": "secondary",
+                            "lower_bound": 0,
+                            "style": "ha-card { \n  background: none;\n  pointer-events: none;\n}\n"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n\n#states > :last-child {\n  z-index: 10;\n}\n"
+            },
+            {
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
+                {
                   "type": "custom:slider-button-card",
                   "entity": "light.living_room",
                   "slider": {
@@ -838,36 +955,6 @@
                 "source": "full",
                 "volume_stateless": false
               },
-              "view_layout": {
-                "position": "main"
-              }
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.floor_lamp",
-                  "show_brightness_control": true,
-                  "use_light_color": true,
-                  "show_color_control": true,
-                  "show_color_temp_control": true,
-                  "collapsible_controls": true,
-                  "icon": "mdi:floor-lamp-torchiere-variant",
-                  "fill_container": false
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.bedside",
-                  "show_brightness_control": true,
-                  "use_light_color": true,
-                  "show_color_control": true,
-                  "show_color_temp_control": true,
-                  "collapsible_controls": true,
-                  "icon": "mdi:lamp",
-                  "fill_container": false
-                }
-              ],
               "view_layout": {
                 "position": "main"
               }
@@ -1245,35 +1332,6 @@
                 }
               ],
               "alignment": "end",
-              "view_layout": {
-                "position": "main"
-              }
-            },
-            {
-              "type": "custom:mini-graph-card",
-              "entities": [
-                {
-                  "entity": "sensor.living_room_hygrometer_temperature",
-                  "color": "var(--accent-color)"
-                }
-              ],
-              "hours_to_show": 24,
-              "hour24": true,
-              "animate": true,
-              "update_interval": 30,
-              "aggregate_func": "avg",
-              "line_width": 1,
-              "bar_spacing": 10,
-              "height": 70,
-              "group": true,
-              "show": {
-                "labels": false,
-                "fill": false,
-                "state": false,
-                "name": false,
-                "icon": false
-              },
-              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n",
               "view_layout": {
                 "position": "main"
               }
@@ -2124,7 +2182,7 @@
                 },
                 {
                   "entity": "light.floor_lamp",
-                  "icon": "mdi:floor-lamp"
+                  "icon": "mdi:floor-lamp-torchiere-variant"
                 },
                 {
                   "show_name": true,
