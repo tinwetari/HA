@@ -114,7 +114,6 @@ sensor:
       - type: processor_temperature
       - type: last_boot
 
-      
 #lights
 light:
   - platform: group
