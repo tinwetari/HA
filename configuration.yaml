@@ -102,6 +102,18 @@ sensor:
             on
           {% endif %}
 
+  - platform: systemmonitor
+    resources:
+      - type: disk_use
+        arg: /config
+      - type: disk_free
+        arg: /config
+      - type: memory_use
+      - type: memory_free
+      - type: processor_use
+      - type: processor_temperature
+      - type: last_boot
+
 #lights
 light:
   - platform: group
@@ -140,3 +152,8 @@ camera:
       scale: 2
     attributes:
       - calibration_points
+
+google_assistant:
+  project_id: home-assistant-18814
+  service_account: !include SERVICE_ACCOUNT.json
+  report_state: true

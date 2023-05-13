@@ -407,124 +407,406 @@
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n}\n.type-custom-vertical-stack-in-card {\n  overflow: visible !important;\n}\n"
             },
             {
-              "type": "custom:vertical-stack-in-card",
+              "type": "custom:expander-card",
+              "gap": "0.6em",
+              "padding": "0px 10px 0px 10px",
+              "clear": true,
+              "title": "Expander",
+              "overlay-margin": "0px 10px",
+              "child-padding": "",
+              "button-background": "transparent",
+              "title-card": {
+                "type": "custom:slider-button-card",
+                "entity": "light.living_room",
+                "slider": {
+                  "direction": "left-right",
+                  "background": "gradient",
+                  "use_state_color": true,
+                  "use_percentage_bg_opacity": true,
+                  "show_track": false,
+                  "toggle_on_click": false,
+                  "force_square": false
+                },
+                "show_name": true,
+                "show_state": false,
+                "compact": true,
+                "icon": {
+                  "show": true,
+                  "use_state_color": true,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "icon": "mdi:sofa-single"
+                },
+                "action_button": {
+                  "show": false,
+                  "mode": "toggle"
+                },
+                "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+              },
               "cards": [
                 {
-                  "type": "custom:slider-button-card",
-                  "entity": "light.living_room",
-                  "slider": {
-                    "direction": "left-right",
-                    "background": "gradient",
-                    "use_state_color": true,
-                    "use_percentage_bg_opacity": true,
-                    "show_track": false,
-                    "toggle_on_click": false,
-                    "force_square": false
-                  },
-                  "show_name": true,
-                  "show_state": false,
-                  "compact": true,
-                  "icon": {
-                    "show": true,
-                    "use_state_color": false,
-                    "tap_action": {
-                      "action": "more-info"
-                    },
-                    "icon": "mdi:sofa-single"
-                  },
-                  "action_button": {
-                    "show": false
-                  },
-                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
-                },
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "position": "absolute;",
-                    "top": "0;",
-                    "right": "0;"
-                  },
-                  "buttons": [
+                  "type": "grid",
+                  "columns": 1,
+                  "cards": [
                     {
-                      "icon": "mdi:plus",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace-dashboard/living-room"
-                      },
-                      "styles": {
-                        "icon": {
-                          "--mdc-icon-size": "34px",
-                          "margin": "1px"
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "type": "custom:light-entity-card",
+                          "entity": "light.living_room",
+                          "shorten_cards": false,
+                          "consolidate_entities": true,
+                          "child_card": true,
+                          "hide_header": false,
+                          "header": "All lights",
+                          "color_wheel": true,
+                          "persist_features": true,
+                          "brightness": true,
+                          "color_temp": true,
+                          "white_value": false,
+                          "color_picker": false,
+                          "smooth_color_wheel": false,
+                          "speed": false,
+                          "intensity": false,
+                          "force_features": false,
+                          "show_slider_percent": false,
+                          "full_width_sliders": true,
+                          "brightness_icon": "weather-sunny",
+                          "white_icon": "file-word-box",
+                          "temperature_icon": "thermometer",
+                          "speed_icon": "speedometer",
+                          "intensity_icon": "transit-connection-horizontal",
+                          "effects_list": false,
+                          "style": "ha-card {\n  margin: 14px 8px !important;\n}\nha-card > div.light-entity-card__header > div.light-entity-card__title {\n  font-size: 14px !important;\n  font-weight: 500;\n}\n"
+                        },
+                        {
+                          "type": "custom:rgb-light-card",
+                          "entity": "light.living_room",
+                          "justify": "around",
+                          "size": 23,
+                          "colors": [
+                            {
+                              "color_temp": 153,
+                              "brightness": 255,
+                              "icon_color": "white"
+                            },
+                            {
+                              "color_temp": 357,
+                              "brightness": 255
+                            },
+                            {
+                              "color_temp": 451,
+                              "brightness": 255
+                            },
+                            {
+                              "rgb_color": [
+                                255,
+                                170,
+                                0
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, rgb(255,170,0), rgb(255,225,165))"
+                            },
+                            {
+                              "rgb_color": [
+                                255,
+                                0,
+                                0
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, red, rgb(255,100,100))"
+                            },
+                            {
+                              "rgb_color": [
+                                244,
+                                38,
+                                255
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, rgb(244,38,255), rgb(255,138,255))"
+                            },
+                            {
+                              "rgb_color": [
+                                0,
+                                222,
+                                255
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, rgb(0,222,255), rgb(140,240,255))"
+                            },
+                            {
+                              "rgb_color": [
+                                0,
+                                0,
+                                255
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, blue, rgb(100,100,255))"
+                            }
+                          ],
+                          "style": "* {\n  margin-bottom: 6px !important;\n}\n"
+                        },
+                        {
+                          "type": "section",
+                          "label": "Media"
+                        },
+                        {
+                          "entity": "media_player.sky_q",
+                          "icon": "mdi:set-top-box",
+                          "type": "custom:mini-media-player",
+                          "hide": {
+                            "volume": true,
+                            "source": true
+                          },
+                          "artwork": "material"
+                        },
+                        {
+                          "type": "section",
+                          "label": "Lights"
+                        },
+                        {
+                          "entity": "light.floor_lamp",
+                          "icon": "mdi:floor-lamp-torchiere-variant"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": true,
+                          "entity": "light.ceiling",
+                          "icon": "mdi:ceiling-light",
+                          "name": "Ceiling"
+                        },
+                        {
+                          "type": "section",
+                          "label": "Gadgets"
+                        },
+                        {
+                          "entity": "sensor.living_room_hygrometer_temperature",
+                          "name": "Temperature",
+                          "icon": "mdi:home-thermometer-outline"
+                        },
+                        {
+                          "entity": "sensor.living_room_hygrometer_humidity",
+                          "name": "Humidity",
+                          "icon": "mdi:home-flood"
+                        },
+                        {
+                          "entity": "media_player.nest_hub",
+                          "icon": "mdi:google"
+                        },
+                        {
+                          "entity": "vacuum.vacubot",
+                          "name": "Vacubot",
+                          "icon": "mdi:robot-vacuum"
+                        },
+                        {
+                          "entity": "sensor.peloton_state",
+                          "icon": "mdi:bike-fast",
+                          "name": "Peloton"
+                        },
+                        {
+                          "entity": "sensor.hp_envy_photo_6200_series_black_ink",
+                          "icon": "mdi:printer-outline",
+                          "name": "HP Envy 6200 Black ink"
+                        },
+                        {
+                          "entity": "sensor.mosquito_repellent_104f_battery",
+                          "icon": "mdi:butterfly",
+                          "name": "Mosquito Repellent"
                         }
-                      }
+                      ]
                     }
                   ]
                 }
               ],
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  border-radius: 26px;\n}\n"
+              "title-card-button-overlay": true,
+              "expanded": false,
+              "title-card-padding": ""
             },
             {
-              "type": "custom:vertical-stack-in-card",
+              "type": "custom:expander-card",
+              "gap": "0.6em",
+              "padding": "0px 10px 0px 10px",
+              "clear": true,
+              "title": "Expander",
+              "overlay-margin": "0px 10px",
+              "child-padding": "",
+              "button-background": "transparent",
+              "title-card": {
+                "type": "custom:slider-button-card",
+                "entity": "light.bedroom",
+                "slider": {
+                  "direction": "left-right",
+                  "background": "gradient",
+                  "use_state_color": true,
+                  "use_percentage_bg_opacity": true,
+                  "show_track": false,
+                  "toggle_on_click": false,
+                  "force_square": false
+                },
+                "show_name": true,
+                "show_state": false,
+                "compact": true,
+                "icon": {
+                  "show": true,
+                  "use_state_color": true,
+                  "tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                "action_button": {
+                  "show": false
+                },
+                "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+              },
               "cards": [
                 {
-                  "type": "custom:slider-button-card",
-                  "entity": "light.bedroom",
-                  "slider": {
-                    "direction": "left-right",
-                    "background": "gradient",
-                    "use_state_color": true,
-                    "use_percentage_bg_opacity": true,
-                    "show_track": false,
-                    "toggle_on_click": false,
-                    "force_square": false
-                  },
-                  "show_name": true,
-                  "show_state": false,
-                  "compact": true,
-                  "icon": {
-                    "show": true,
-                    "use_state_color": false,
-                    "tap_action": {
-                      "action": "more-info"
-                    },
-                    "icon": "mdi:bed"
-                  },
-                  "action_button": {
-                    "mode": "toggle",
-                    "icon": "mdi:power",
-                    "show": false,
-                    "show_spinner": true,
-                    "tap_action": {
-                      "action": "toggle"
-                    }
-                  },
-                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
-                },
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "position": "absolute;",
-                    "top": "0;",
-                    "right": "0;"
-                  },
-                  "buttons": [
+                  "type": "grid",
+                  "columns": 1,
+                  "cards": [
                     {
-                      "icon": "mdi:plus",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace-dashboard/bedroom"
-                      },
-                      "styles": {
-                        "icon": {
-                          "--mdc-icon-size": "34px",
-                          "margin": "1px"
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "shorten_cards": false,
+                          "consolidate_entities": true,
+                          "child_card": true,
+                          "hide_header": false,
+                          "header": "All lights",
+                          "color_wheel": false,
+                          "persist_features": true,
+                          "brightness": true,
+                          "color_temp": true,
+                          "white_value": false,
+                          "color_picker": false,
+                          "speed": false,
+                          "intensity": false,
+                          "force_features": false,
+                          "show_slider_percent": false,
+                          "full_width_sliders": true,
+                          "brightness_icon": "weather-sunny",
+                          "white_icon": "file-word-box",
+                          "temperature_icon": "thermometer",
+                          "speed_icon": "speedometer",
+                          "intensity_icon": "transit-connection-horizontal",
+                          "type": "custom:light-entity-card",
+                          "entity": "light.bedroom",
+                          "smooth_color_wheel": true,
+                          "effects_list": false,
+                          "style": "ha-card {\n  margin: 14px 8px !important;\n}\nha-card > div.light-entity-card__header > div.light-entity-card__title {\n  font-size: 14px !important;\n  font-weight: 500;\n}\n"
+                        },
+                        {
+                          "type": "custom:rgb-light-card",
+                          "entity": "light.bedroom",
+                          "justify": "around",
+                          "size": 23,
+                          "colors": [
+                            {
+                              "color_temp": 153,
+                              "brightness": 255,
+                              "icon_color": "white"
+                            },
+                            {
+                              "color_temp": 357,
+                              "brightness": 255
+                            },
+                            {
+                              "color_temp": 451,
+                              "brightness": 255
+                            },
+                            {
+                              "rgb_color": [
+                                255,
+                                170,
+                                0
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, rgb(255,170,0), rgb(255,225,165))"
+                            },
+                            {
+                              "rgb_color": [
+                                255,
+                                0,
+                                0
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, red, rgb(255,100,100))"
+                            },
+                            {
+                              "rgb_color": [
+                                244,
+                                38,
+                                255
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, rgb(244,38,255), rgb(255,138,255))"
+                            },
+                            {
+                              "rgb_color": [
+                                0,
+                                222,
+                                255
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, rgb(0,222,255), rgb(140,240,255))"
+                            },
+                            {
+                              "rgb_color": [
+                                0,
+                                0,
+                                255
+                              ],
+                              "brightness": 255,
+                              "icon_color": "linear-gradient(15deg, blue, rgb(100,100,255))"
+                            }
+                          ],
+                          "style": "* {\n  margin-bottom: 6px !important;\n}\n"
+                        },
+                        {
+                          "type": "section",
+                          "label": "Lights"
+                        },
+                        {
+                          "entity": "light.bedside",
+                          "icon": "mdi:lamp-outline"
+                        },
+                        {
+                          "entity": "light.bedroom_ceiling",
+                          "icon": "mdi:ceiling-light"
+                        },
+                        {
+                          "type": "section",
+                          "label": "Gadgets"
+                        },
+                        {
+                          "entity": "sensor.bedroom_hygrometer_temperature",
+                          "name": "Temperature",
+                          "icon": "mdi:home-thermometer-outline"
+                        },
+                        {
+                          "entity": "sensor.bedroom_hygrometer_humidity",
+                          "name": "Humidity",
+                          "icon": "mdi:home-flood"
+                        },
+                        {
+                          "entity": "media_player.home_mini",
+                          "icon": "mdi:google",
+                          "type": "custom:mini-media-player",
+                          "artwork": "material",
+                          "hide": {
+                            "play_stop": false
+                          }
                         }
-                      }
+                      ],
+                      "state_color": false,
+                      "show_header_toggle": false
                     }
                   ]
                 }
               ],
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  outline-right: 10px solid blue !important;\n  box-shadow: inset -1px 0px 0px 0px var(--ha-card-background) !important;\n  z-index: 1;\n  pointer-events: none;\n  border-radius: 26px;\n}\n"
+              "title-card-button-overlay": true,
+              "expanded": false,
+              "title-card-padding": ""
             },
             {
               "type": "custom:vertical-stack-in-card",
@@ -579,11 +861,6 @@
                                 "name": false,
                                 "entity": "device_tracker.keys",
                                 "icon": "mdi:key-chain-variant"
-                              },
-                              {
-                                "name": false,
-                                "entity": "device_tracker.macbook",
-                                "icon": "mdi:laptop"
                               },
                               {
                                 "name": false,
@@ -1384,6 +1661,129 @@
               },
               "hours_to_show": 148,
               "smoothing": false,
+              "view_layout": {
+                "position": "main"
+              }
+            },
+            {
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
+                {
+                  "type": "custom:slider-button-card",
+                  "entity": "light.living_room",
+                  "slider": {
+                    "direction": "left-right",
+                    "background": "gradient",
+                    "use_state_color": true,
+                    "use_percentage_bg_opacity": true,
+                    "show_track": false,
+                    "toggle_on_click": false,
+                    "force_square": false
+                  },
+                  "show_name": true,
+                  "show_state": false,
+                  "compact": true,
+                  "icon": {
+                    "show": true,
+                    "use_state_color": false,
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:sofa-single"
+                  },
+                  "action_button": {
+                    "show": false
+                  },
+                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+                },
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "position": "absolute;",
+                    "top": "0;",
+                    "right": "0;"
+                  },
+                  "buttons": [
+                    {
+                      "icon": "mdi:plus",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace-dashboard/living-room"
+                      },
+                      "styles": {
+                        "icon": {
+                          "--mdc-icon-size": "34px",
+                          "margin": "1px"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  border-radius: 26px;\n}\n"
+            },
+            {
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
+                {
+                  "type": "custom:slider-button-card",
+                  "entity": "light.bedroom",
+                  "slider": {
+                    "direction": "left-right",
+                    "background": "gradient",
+                    "use_state_color": true,
+                    "use_percentage_bg_opacity": true,
+                    "show_track": false,
+                    "toggle_on_click": false,
+                    "force_square": false
+                  },
+                  "show_name": true,
+                  "show_state": false,
+                  "compact": true,
+                  "icon": {
+                    "show": true,
+                    "use_state_color": false,
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:bed"
+                  },
+                  "action_button": {
+                    "mode": "toggle",
+                    "icon": "mdi:power",
+                    "show": false,
+                    "show_spinner": true,
+                    "tap_action": {
+                      "action": "toggle"
+                    }
+                  },
+                  "style": ":host {\n  font-weight: 600;\n}\ndiv.icon {\n  margin: 4px;\n  font-size: 10px;\n}\n"
+                },
+                {
+                  "type": "custom:paper-buttons-row",
+                  "styles": {
+                    "position": "absolute;",
+                    "top": "0;",
+                    "right": "0;"
+                  },
+                  "buttons": [
+                    {
+                      "icon": "mdi:plus",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/lovelace-dashboard/bedroom"
+                      },
+                      "styles": {
+                        "icon": {
+                          "--mdc-icon-size": "34px",
+                          "margin": "1px"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  outline-right: 10px solid blue !important;\n  box-shadow: inset -1px 0px 0px 0px var(--ha-card-background) !important;\n  z-index: 1;\n  pointer-events: none;\n  border-radius: 26px;\n}\n",
               "view_layout": {
                 "position": "main"
               }
