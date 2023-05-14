@@ -136,6 +136,12 @@ light:
       - light.ceiling
       - light.floor_lamp
 
+device_tracker:
+  - platform: ping
+    track_new_devices: False
+    consider_home: 0:05
+    hosts:
+      kaari: 192.168.0.10
 #vacuum cleaner
 camera:
   - platform: xiaomi_cloud_map_extractor
@@ -157,3 +163,15 @@ google_assistant:
   project_id: home-assistant-18814
   service_account: !include SERVICE_ACCOUNT.json
   report_state: true
+
+person:
+  - name: Kaari
+    id: kaari
+    device_trackers:
+      - device_tracker.kaari
+binary_sensor:
+  - platform: ping
+    host: 192.168.0.10
+    name: "kaari's iPhone"
+    count: 2
+    scan_interval: 30

@@ -889,3 +889,4 @@ zigbee.db-shm
 zigbee.db-wal
 .storage/lovelace.lovelace_dashboard
 SERVICE_ACCOUNT.json
+known_devices.yaml
