@@ -141,7 +141,10 @@ device_tracker:
     track_new_devices: False
     consider_home: 0:05
     hosts:
-      kaari: 192.168.0.10
+      kaari_iphone: 192.168.0.10
+      kaaris_ipad: 192.168.0.20
+      kaaris_apple_watch: 192.168.0.23
+
 #vacuum cleaner
 camera:
   - platform: xiaomi_cloud_map_extractor
