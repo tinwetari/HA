@@ -164,14 +164,19 @@ google_assistant:
   service_account: !include SERVICE_ACCOUNT.json
   report_state: true
 
-person:
-  - name: Kaari
-    id: kaari
-    device_trackers:
-      - device_tracker.kaari
 binary_sensor:
   - platform: ping
     host: 192.168.0.10
     name: "kaari's iPhone"
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.0.20
+    name: "kaari's iPad"
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.0.23
+    name: "kaari's Apple Watch"
     count: 2
     scan_interval: 30
