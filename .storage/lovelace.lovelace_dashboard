@@ -1552,6 +1552,36 @@
                 }
               ],
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n"
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "entities",
+                "show_header_toggle": false,
+                "state_color": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "attributes": {
+                      "device_class": "battery"
+                    }
+                  }
+                ],
+                "exclude": [
+                  {
+                    "state": ">30%"
+                  },
+                  {
+                    "name": "state",
+                    "value": "Unavailable"
+                  },
+                  {
+                    "entity_id": "*macbook*"
+                  }
+                ]
+              },
+              "show_empty": false
             }
           ]
         },

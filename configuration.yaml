@@ -159,7 +159,7 @@ light:
 device_tracker:
   - platform: ping
     track_new_devices: False
-    consider_home: 0:05
+    consider_home: 0:10
     hosts:
       kaari_iphone: 192.168.0.10
       kaaris_ipad: 192.168.0.20
@@ -202,4 +202,4 @@ binary_sensor:
     host: 192.168.0.23
     name: "kaari's Apple Watch"
     count: 2
-    scan_interval: 30
+    scan_interval: 120
