@@ -116,128 +116,177 @@
               ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "custom:expander-card",
+              "gap": "0.6em",
+              "padding": "",
+              "clear": true,
+              "title": "Expander",
+              "overlay-margin": "",
+              "child-padding": "0.5em",
+              "button-background": "transparent",
+              "title-card-button-overlay": false,
+              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n",
+              "title-card": {
+                "type": "entities",
+                "entities": [
+                  {
+                    "type": "custom:paper-buttons-row",
+                    "buttons": [
+                      {
+                        "tap_action": {
+                          "action": "call-service",
+                          "service": "light.turn_off",
+                          "target": {
+                            "entity_id": "light.all"
+                          }
+                        },
+                        "data": {},
+                        "entity": "light.all",
+                        "name": false,
+                        "style": {
+                          "button": {
+                            "width": "42px",
+                            "height": "42px",
+                            "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                            "border-radius": "100%"
+                          },
+                          "icon": {
+                            "margin-top": 0
+                          },
+                          "name": {
+                            "margin-top": "20px"
+                          }
+                        }
+                      },
+                      {
+                        "layout": "icon",
+                        "icon": "mdi:window-shutter",
+                        "name": "Volets",
+                        "tap_action": {
+                          "action": "navigate",
+                          "navigation_path": "/lovelace/volets"
+                        },
+                        "style": {
+                          "button": {
+                            "width": "42px",
+                            "height": "42px",
+                            "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                            "border-radius": "100%"
+                          },
+                          "icon": {
+                            "margin-top": 0
+                          },
+                          "name": {
+                            "margin-top": "20px"
+                          }
+                        }
+                      },
+                      {
+                        "layout": "icon",
+                        "icon": "mdi:cart-outline",
+                        "name": "Liste",
+                        "tap_action": {
+                          "action": "navigate",
+                          "navigation_path": "/lovelace/liste"
+                        },
+                        "style": {
+                          "button": {
+                            "width": "42px",
+                            "height": "42px"
+                          },
+                          "icon": {
+                            "margin-top": 0
+                          },
+                          "name": {
+                            "margin-top": "20px"
+                          }
+                        }
+                      },
+                      {
+                        "layout": "icon",
+                        "icon": "mdi:cog",
+                        "name": "Settings",
+                        "tap_action": {
+                          "action": "navigate",
+                          "navigation_path": "/config/dashboard"
+                        },
+                        "style": {
+                          "button": {
+                            "width": "42px",
+                            "height": "42px"
+                          },
+                          "icon": {
+                            "margin-top": 0
+                          },
+                          "name": {
+                            "margin-top": "20px"
+                          }
+                        }
+                      }
+                    ],
+                    "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important; \n}\n"
+                  }
+                ],
+                "style": "ha-card { \n  \n  background: none !important;\n  margin: 0px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+              },
+              "expanded": false,
+              "cards": [
                 {
-                  "type": "custom:paper-buttons-row",
-                  "buttons": [
+                  "type": "custom:expander-card",
+                  "gap": "0.6em",
+                  "padding": "",
+                  "clear": true,
+                  "title": "Batteries",
+                  "overlay-margin": "2em",
+                  "child-padding": "",
+                  "button-background": "transparent",
+                  "cards": [
                     {
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_off",
-                        "target": {
-                          "entity_id": "light.all"
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "type": "section",
+                          "label": "Gadgets"
+                        },
+                        {
+                          "entity": "sensor.bedroom_hygrometer_battery",
+                          "icon": "mdi:space-station"
+                        },
+                        {
+                          "entity": "sensor.living_room_hygrometer_battery",
+                          "icon": "mdi:space-station",
+                          "style": ":host {\n  {% if states('sensor.living_room_hygrometer_battery') <'50%' %}\n    --card-mod-icon-color: #FF7738;\n  {% endif %}\n}\n"
+                        },
+                        {
+                          "entity": "sensor.mosquito_repellent_104f_battery",
+                          "icon": "mdi:butterfly",
+                          "name": "Mosquito Repellent"
+                        },
+                        {
+                          "type": "section",
+                          "label": "Plants"
+                        },
+                        {
+                          "entity": "sensor.plant_sensor_5a14_battery",
+                          "icon": "mdi:flower",
+                          "name": "Plant 1"
+                        },
+                        {
+                          "entity": "sensor.plant_sensor_5a68_battery",
+                          "icon": "mdi:flower",
+                          "name": "Plant 2"
+                        },
+                        {
+                          "entity": "sensor.plant_sensor_3_battery",
+                          "icon": "mdi:flower",
+                          "name": "Plant 3"
                         }
-                      },
-                      "data": {},
-                      "entity": "light.all",
-                      "name": false,
-                      "style": {
-                        "button": {
-                          "width": "42px",
-                          "height": "42px",
-                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
-                          "border-radius": "100%"
-                        },
-                        "icon": {
-                          "margin-top": 0
-                        },
-                        "name": {
-                          "margin-top": "20px"
-                        }
-                      }
-                    },
-                    {
-                      "layout": "icon",
-                      "icon": "mdi:window-shutter",
-                      "name": "Volets",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace/volets"
-                      },
-                      "style": {
-                        "button": {
-                          "width": "42px",
-                          "height": "42px",
-                          "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
-                          "border-radius": "100%"
-                        },
-                        "icon": {
-                          "margin-top": 0
-                        },
-                        "name": {
-                          "margin-top": "20px"
-                        }
-                      }
-                    },
-                    {
-                      "layout": "icon",
-                      "icon": "mdi:cart-outline",
-                      "name": "Liste",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace/liste"
-                      },
-                      "style": {
-                        "button": {
-                          "width": "42px",
-                          "height": "42px"
-                        },
-                        "icon": {
-                          "margin-top": 0
-                        },
-                        "name": {
-                          "margin-top": "20px"
-                        }
-                      }
-                    },
-                    {
-                      "icon": "mdi:video",
-                      "layout": "icon",
-                      "name": "Sécurité",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace/securite"
-                      },
-                      "style": {
-                        "button": {
-                          "width": "42px",
-                          "height": "42px"
-                        },
-                        "icon": {
-                          "margin-top": 0
-                        },
-                        "name": {
-                          "margin-top": "20px"
-                        }
-                      }
-                    },
-                    {
-                      "layout": "icon",
-                      "icon": "mdi:cog",
-                      "name": "Settings",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/config/dashboard"
-                      },
-                      "style": {
-                        "button": {
-                          "width": "42px",
-                          "height": "42px"
-                        },
-                        "icon": {
-                          "margin-top": 0
-                        },
-                        "name": {
-                          "margin-top": "20px"
-                        }
-                      }
+                      ]
                     }
                   ],
-                  "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important;\n  \n}\n"
+                  "expanded": false
                 }
-              ],
-              "style": "ha-card { \n  \n  background: none !important;\n  margin: 15px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+              ]
             },
             {
               "type": "custom:vertical-stack-in-card",
@@ -1334,254 +1383,6 @@
                 }
               ],
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n"
-            },
-            {
-              "type": "custom:expander-card",
-              "gap": "0.6em",
-              "padding": "1em",
-              "clear": true,
-              "title": "Expander",
-              "overlay-margin": "40px 20px",
-              "child-padding": "0.5em",
-              "button-background": "transparent",
-              "title-card-button-overlay": true,
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n",
-              "title-card": {
-                "type": "entities",
-                "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n  {% if is_state('person.jesus','home') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n        entities:\n",
-                "entities": [
-                  {
-                    "entity": "person.jesus",
-                    "name": " ",
-                    "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding: 0.6em;\n}\n"
-                  },
-                  {
-                    "type": "section",
-                    "label": "Jesus",
-                    "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
-                  },
-                  {
-                    "entity": "sensor.poco_f3_geocoded_location",
-                    "name": "‎",
-                    "icon": "none",
-                    "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
-                  }
-                ],
-                "show_header_toggle": true,
-                "footer": {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "justify-content": "space-between;",
-                    "padding": "5px;",
-                    "width": "auto;",
-                    "margin-top": "6em;",
-                    "margin-bottom": "0px;",
-                    "filter": "drop-shadow(0px 2px 2px rgba(0,0,0,0.5));"
-                  },
-                  "buttons": [
-                    {
-                      "name": false,
-                      "entity": "sensor.poco_f3_battery_level"
-                    },
-                    {
-                      "name": false,
-                      "entity": "device_tracker.keys",
-                      "icon": "mdi:key-chain-variant"
-                    },
-                    {
-                      "name": false,
-                      "entity": "device_tracker.ipad",
-                      "icon": "mdi:tablet"
-                    },
-                    {
-                      "name": false,
-                      "icon": "mdi:plus",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/lovelace-dashboard/jesus"
-                      }
-                    }
-                  ]
-                }
-              },
-              "cards": [
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "entity": "light.all"
-                }
-              ]
-            },
-            {
-              "type": "custom:vertical-stack-in-card",
-              "cards": [
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "grid",
-                      "square": true,
-                      "columns": 2,
-                      "cards": [
-                        {
-                          "type": "entities",
-                          "show_header_toggle": false,
-                          "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n  {% if is_state('person.jesus','home') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n",
-                          "entities": [
-                            {
-                              "entity": "person.jesus",
-                              "state_color": false,
-                              "name": "‎",
-                              "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding: 0.6em;\n}\n"
-                            },
-                            {
-                              "type": "section",
-                              "label": "Jesus",
-                              "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
-                            },
-                            {
-                              "entity": "sensor.poco_f3_geocoded_location",
-                              "name": "‎",
-                              "icon": "none",
-                              "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
-                            }
-                          ],
-                          "footer": {
-                            "type": "custom:paper-buttons-row",
-                            "styles": {
-                              "justify-content": "space-between;",
-                              "padding": "5px;",
-                              "width": "auto;",
-                              "margin-top": "-6px;",
-                              "margin-bottom": "0px;",
-                              "filter": "drop-shadow(0px 2px 2px rgba(0,0,0,0.5));"
-                            },
-                            "buttons": [
-                              {
-                                "name": false,
-                                "entity": "sensor.poco_f3_battery_level"
-                              },
-                              {
-                                "name": false,
-                                "entity": "device_tracker.keys",
-                                "icon": "mdi:key-chain-variant"
-                              },
-                              {
-                                "name": false,
-                                "entity": "device_tracker.ipad",
-                                "icon": "mdi:tablet"
-                              },
-                              {
-                                "name": false,
-                                "icon": "mdi:plus",
-                                "tap_action": {
-                                  "action": "navigate",
-                                  "navigation_path": "/lovelace-dashboard/jesus"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "type": "entities",
-                          "show_header_toggle": false,
-                          "style": "* {\n  padding: 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n  {% if is_state('person.kaari_2','home') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n",
-                          "entities": [
-                            {
-                              "entity": "person.kaari_2",
-                              "state_color": false,
-                              "name": "‎",
-                              "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding: 0.6em;\n}\n"
-                            },
-                            {
-                              "type": "section",
-                              "label": "Kaari",
-                              "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
-                            },
-                            {
-                              "entity": "sensor.poco_f3_geocoded_location",
-                              "name": "‎",
-                              "icon": "none",
-                              "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
-                            }
-                          ],
-                          "footer": {
-                            "type": "custom:paper-buttons-row",
-                            "styles": {
-                              "justify-content": "space-between;",
-                              "padding": "5px;",
-                              "width": "auto;",
-                              "margin-top": "-6px;",
-                              "margin-bottom": "0px;",
-                              "filter": "drop-shadow(0px 2px 2px rgba(0,0,0,0.5));"
-                            },
-                            "buttons": [
-                              {
-                                "name": false,
-                                "entity": "device_tracker.kaari_iphone",
-                                "icon": "mdi:cellphone"
-                              },
-                              {
-                                "name": false,
-                                "entity": "device_tracker.kaaris_ipad",
-                                "icon": "mdi:tablet"
-                              },
-                              {
-                                "name": false,
-                                "entity": "device_tracker.kaaris_apple_watch",
-                                "icon": "mdi:watch-variant"
-                              },
-                              {
-                                "name": false,
-                                "icon": "mdi:plus",
-                                "tap_action": {
-                                  "action": "navigate",
-                                  "navigation_path": "/lovelace-dashboard/jesus"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n"
-            },
-            {
-              "type": "custom:auto-entities",
-              "card": {
-                "type": "entities",
-                "show_header_toggle": false,
-                "state_color": true
-              },
-              "filter": {
-                "include": [
-                  {
-                    "attributes": {
-                      "device_class": "battery"
-                    }
-                  }
-                ],
-                "exclude": [
-                  {
-                    "state": ">30%"
-                  },
-                  {
-                    "name": "state",
-                    "value": "Unavailable"
-                  },
-                  {
-                    "entity_id": "*macbook*"
-                  }
-                ]
-              },
-              "show_empty": false
             }
           ]
         },
