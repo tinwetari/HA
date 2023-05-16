@@ -329,14 +329,17 @@
                               "conditions": [
                                 {
                                   "entity": "media_player.sky_q",
-                                  "state": "on"
+                                  "state": "off"
                                 }
                               ],
                               "card": {
                                 "type": "custom:paper-buttons-row",
                                 "buttons": [
                                   {
+                                    "entity": "switch.television",
                                     "icon": "mdi:television",
+                                    "layout": "icon_name",
+                                    "name": "Sky Q",
                                     "state_styles": {
                                       "off": {
                                         "button": {
@@ -382,6 +385,7 @@
                               "card": {
                                 "type": "custom:mini-media-player",
                                 "volume_stateless": false,
+                                "name": "Living Room",
                                 "group": false,
                                 "volume_step": "3",
                                 "entity": "media_player.sky_q",
@@ -393,7 +397,7 @@
                                   "name": true,
                                   "source": true
                                 },
-                                "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n  position: absolute !important;\n}  .flex {\n  display: block;\n  {% if not is_state('media_player.sky_q','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  {% else %}\n  {% endif %}\n}  ha-card.--has-artwork .cover{\n  opacity: 0.9;\n} .entity__info__media {\n  opacity: 1 !important;\n  padding-right: 16px;\n  overflow: hidden;\n  height: 4.4em;\n  height: 100%;\n} ha-card > div.mmp-player > div.mmp-player__core.flex > div.entity__icon {\n  {% if not is_state('media_player.sky_q','off') %}\n  display: none;\n  {% endif %}\n} ha-card > div.mmp-player > div.mmp-player__core.flex { } mmp-media-controls {\n  {% if not is_state('media_player.sky_q','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  flex-wrap: wrap-reverse !important;\n  {% endif %}\n} mmp-powerstrip  { } ha-card > div.mmp-player {\n  padding: 12px !important;\n  {% if not is_state('media_player.sky_q','off') %}\n  {% else %}\n  #display: none !important;\n  {% endif %}\n} ha-card > div.mmp-player {\n  {% if is_state_attr('media_player.salon','media_content_id', 'Bluetooth') %}\n  position: relative;\n  height: 20vh;\n  {% else %}\n  position: absolute;\n  align-self: flex-start;\n  height: 100%;\n  {% endif %}\n  background: radial-gradient(circle, rgba(255,255,255,0) 10%, rgba(0,0,0,0.6) 100%) !important;\n  font-size: 0.9em !important;\n} ha-card > div.mmp-player > div.mmp-player__adds {\n  position: absolute;\n  bottom: 14px;\n  padding: 0 16px 0 0;\n} div.flex.mmp-media-controls__media {\n    margin-bottom: -5px !important;\n}\n"
+                                "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n  position: absolute !important;\n}  .flex {\n  display: block;\n  {% if not is_state('media_player.sky_q','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  {% else %}\n  {% endif %}\n}  ha-card.--has-artwork .cover{\n  opacity: 0.9;\n} .entity__info__media {\n  opacity: 1 !important;\n  padding-right: 16px;\n  overflow: hidden;\n  height: 4.4em;\n  height: 100%;\n} ha-card > div.mmp-player > div.mmp-player__core.flex > div.entity__icon {\n  {% if not is_state('media_player.sky_q','off') %}\n  display: none;\n  {% endif %}\n} ha-card > div.mmp-player > div.mmp-player__core.flex { } mmp-media-controls {\n  {% if not is_state('media_player.sky_q','off') %}\n  filter: drop-shadow(0px 2px 2px rgba(0,0,0,1));\n  flex-wrap: wrap-reverse !important;\n  {% endif %}\n} mmp-powerstrip  { } ha-card > div.mmp-player {\n  padding: 12px !important;\n  {% if not is_state('media_player.sky_q','off') %}\n  {% else %}\n  #display: none !important;\n  {% endif %}\n} ha-card > div.mmp-player {\n  {% if is_state_attr('media_player.sky_q','media_content_id', 'Bluetooth') %}\n  position: relative;\n  height: 20vh;\n  {% else %}\n  position: absolute;\n  align-self: flex-start;\n  height: 100%;\n  {% endif %}\n  background: radial-gradient(circle, rgba(255,255,255,0) 10%, rgba(0,0,0,0.6) 100%) !important;\n  font-size: 0.9em !important;\n} ha-card > div.mmp-player > div.mmp-player__adds {\n  position: absolute;\n  bottom: 14px;\n  padding: 0 16px 0 0;\n} div.flex.mmp-media-controls__media {\n    margin-bottom: -5px !important;\n}\n"
                               }
                             }
                           ],
@@ -2245,6 +2249,29 @@
               "view_layout": {
                 "position": "main"
               }
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.bedroom_hygrometer_battery"
+                },
+                {
+                  "entity": "sensor.living_room_hygrometer_battery"
+                },
+                {
+                  "entity": "sensor.plant_sensor_5a14_battery"
+                },
+                {
+                  "entity": "sensor.plant_sensor_5a68_battery"
+                },
+                {
+                  "entity": "sensor.plant_sensor_3_battery"
+                },
+                {
+                  "entity": "sensor.mosquito_repellent_104f_battery"
+                }
+              ]
             }
           ]
         },
