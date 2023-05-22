@@ -122,7 +122,7 @@
               "clear": true,
               "title": "Expander",
               "overlay-margin": "",
-              "child-padding": "0.5em",
+              "child-padding": "10px",
               "button-background": "transparent",
               "title-card-button-overlay": false,
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n",
@@ -227,7 +227,7 @@
                     "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -16px !important; \n}\n"
                   }
                 ],
-                "style": "ha-card { \n  \n  background: none !important;\n  margin: 0px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+                "style": "ha-card { \n  \n  background: none !important;\n  margin: 0px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 70%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
               },
               "expanded": false,
               "cards": [
@@ -238,55 +238,111 @@
                   "clear": true,
                   "title": "Batteries",
                   "overlay-margin": "2em",
-                  "child-padding": "",
+                  "child-padding": "-10px",
                   "button-background": "transparent",
                   "cards": [
                     {
-                      "type": "entities",
-                      "entities": [
+                      "type": "horizontal-stack",
+                      "cards": [
                         {
-                          "type": "section",
-                          "label": "Gadgets"
-                        },
-                        {
-                          "entity": "sensor.bedroom_hygrometer_battery",
-                          "icon": "mdi:space-station"
-                        },
-                        {
-                          "entity": "sensor.living_room_hygrometer_battery",
-                          "icon": "mdi:space-station",
-                          "style": ":host {\n  {% if states('sensor.living_room_hygrometer_battery') <'50%' %}\n    --card-mod-icon-color: #FF7738;\n  {% endif %}\n}\n"
-                        },
-                        {
-                          "entity": "sensor.mosquito_repellent_104f_battery",
-                          "icon": "mdi:butterfly",
-                          "name": "Mosquito Repellent"
-                        },
-                        {
-                          "type": "section",
-                          "label": "Plants"
-                        },
-                        {
-                          "entity": "sensor.plant_sensor_5a14_battery",
-                          "icon": "mdi:flower",
-                          "name": "Plant 1"
-                        },
-                        {
-                          "entity": "sensor.plant_sensor_5a68_battery",
-                          "icon": "mdi:flower",
-                          "name": "Plant 2"
-                        },
-                        {
-                          "entity": "sensor.plant_sensor_3_battery",
-                          "icon": "mdi:flower",
-                          "name": "Plant 3"
+                          "square": false,
+                          "type": "grid",
+                          "columns": 2,
+                          "cards": [
+                            {
+                              "type": "entities",
+                              "entities": [
+                                {
+                                  "type": "custom:battery-state-card",
+                                  "sort_by_level": "desc",
+                                  "bulk_rename": [
+                                    {
+                                      "from": "Battery"
+                                    },
+                                    {
+                                      "from": "Level"
+                                    }
+                                  ],
+                                  "collapse": [
+                                    {
+                                      "name": "Gadgets",
+                                      "secondary_info": " {range}%",
+                                      "icon": "mdi:devices"
+                                    }
+                                  ],
+                                  "entities": [
+                                    {
+                                      "entity": "sensor.bedroom_hygrometer_battery",
+                                      "name": "Bedroom Hygrometer",
+                                      "icon": "mdi:space-station"
+                                    },
+                                    {
+                                      "entity": "sensor.living_room_hygrometer_battery",
+                                      "name": "Living Room Hygrometer",
+                                      "icon": "mdi:space-station"
+                                    },
+                                    {
+                                      "entity": "sensor.mosquito_repellent_battery",
+                                      "name": "Mosquito Repellent",
+                                      "icon": "mdi:butterfly"
+                                    },
+                                    {
+                                      "entity": "sensor.mosquito_repellent_consumable",
+                                      "icon": "mdi:butterfly"
+                                    }
+                                  ],
+                                  "icon": "mdi:flower"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "entities",
+                              "entities": [
+                                {
+                                  "type": "custom:battery-state-card",
+                                  "sort_by_level": "desc",
+                                  "bulk_rename": [
+                                    {
+                                      "from": "Battery"
+                                    },
+                                    {
+                                      "from": "Level"
+                                    }
+                                  ],
+                                  "collapse": [
+                                    {
+                                      "name": "Plants",
+                                      "secondary_info": "{range}% ",
+                                      "icon": "mdi:flower"
+                                    }
+                                  ],
+                                  "entities": [
+                                    {
+                                      "entity": "sensor.plant_1_battery"
+                                    },
+                                    {
+                                      "entity": "sensor.plant_2_battery"
+                                    },
+                                    {
+                                      "entity": "sensor.plant_3_battery"
+                                    },
+                                    {
+                                      "entity": "sensor.plant_4_battery"
+                                    }
+                                  ],
+                                  "icon": "mdi:flower"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
                   ],
                   "expanded": false
                 }
-              ]
+              ],
+              "title-card-padding": ""
             },
             {
               "type": "custom:vertical-stack-in-card",
@@ -606,7 +662,7 @@
                         },
                         {
                           "entity": "media_player.sky_q",
-                          "icon": "mdi:set-top-box",
+                          "icon": "phu:sky-q-logo",
                           "type": "custom:mini-media-player",
                           "hide": {
                             "volume": true,
@@ -645,7 +701,7 @@
                         },
                         {
                           "entity": "media_player.nest_hub",
-                          "icon": "mdi:google"
+                          "icon": "phu:nest-hub"
                         },
                         {
                           "entity": "vacuum.vacubot",
@@ -663,7 +719,7 @@
                           "name": "HP Envy 6200 Black ink"
                         },
                         {
-                          "entity": "sensor.mosquito_repellent_104f_battery",
+                          "entity": "sensor.mosquito_repellent_battery",
                           "icon": "mdi:butterfly",
                           "name": "Mosquito Repellent"
                         }
@@ -843,7 +899,7 @@
                         },
                         {
                           "entity": "media_player.home_mini",
-                          "icon": "mdi:google",
+                          "icon": "phu:home-mini",
                           "type": "custom:mini-media-player",
                           "artwork": "material",
                           "hide": {
@@ -968,7 +1024,7 @@
                               {
                                 "name": false,
                                 "entity": "device_tracker.kaari_iphone",
-                                "icon": "mdi:cellphone"
+                                "icon": "phu:apple-iphone"
                               },
                               {
                                 "name": false,
@@ -978,7 +1034,7 @@
                               {
                                 "name": false,
                                 "entity": "device_tracker.kaaris_apple_watch",
-                                "icon": "mdi:watch-variant"
+                                "icon": "phu:apple-watch-alt"
                               },
                               {
                                 "name": false,
@@ -1125,12 +1181,25 @@
                               },
                               "buttons": [
                                 {
-                                  "name": "Yesterday | {{ states(\"sensor.octopus_energy_electricity_21l3971511_1200042300642_previous_accumulative_consumption\") | round }} Wh",
-                                  "entity": "sensor.octopus_energy_electricity_21l3971511_1200042300642_previous_accumulative_consumption",
+                                  "name": "Yesterday | {{ states(\"sensor.octopus_previous_accumulative_consumption\") | round }} Wh | £{{ states(\"sensor.electricity_cost\")}}",
+                                  "entity": "sensor.sensor.octopus_previous_accumulative_consumption",
                                   "icon": false,
                                   "styles": {
                                     "button": {
                                       "margin-top": 0,
+                                      "font-size": "12px",
+                                      "opacity": 0.8,
+                                      "margin-bottom": "-10px"
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Last 7 days | {{ states(\"sensor.octopus_previous_accumulative_consumption\") | round }} Wh | £{{ states(\"sensor.electricity_cost\")}}",
+                                  "entity": "sensor.sensor.octopus_previous_accumulative_consumption",
+                                  "icon": false,
+                                  "styles": {
+                                    "button": {
+                                      "margin-top": "-10px",
                                       "font-size": "12px",
                                       "opacity": 0.8,
                                       "margin-bottom": "-10px"
@@ -1143,7 +1212,7 @@
                           "footer": {
                             "type": "custom:mini-graph-card",
                             "entities": [
-                              "sensor.octopus_energy_electricity_21l3971511_1200042300642_previous_accumulative_consumption"
+                              "sensor.octopus_previous_accumulative_consumption"
                             ],
                             "show": {
                               "name": false,
@@ -1180,142 +1249,78 @@
                       "columns": 2,
                       "cards": [
                         {
-                          "type": "custom:expander-card",
-                          "gap": "0.6em",
-                          "padding": "0em",
-                          "clear": true,
-                          "title": "Expander",
-                          "overlay-margin": "14.4em 0.4em",
-                          "child-padding": "",
-                          "button-background": "transparent",
-                          "title-card-button-overlay": true,
-                          "title-card": {
-                            "type": "grid",
-                            "square": true,
-                            "columns": 1,
-                            "cards": [
+                          "type": "entities",
+                          "show_header_toggle": false,
+                          "style": "* {\n  padding: 0 0 0 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n  {% if is_state('plant.parlor_palm','ok') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n",
+                          "entities": [
+                            {
+                              "entity": "plant.parlor_palm",
+                              "state_color": false,
+                              "show_state": false,
+                              "name": "‎",
+                              "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n  margin-top: -2px;\n  padding: 0.6em;\n}\n"
+                            },
+                            {
+                              "type": "section",
+                              "label": "Parlor Palm",
+                              "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
+                            },
+                            {
+                              "entity": "sensor.poco_f3_geocoded_location",
+                              "name": "‎",
+                              "icon": "none",
+                              "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
+                            }
+                          ],
+                          "footer": {
+                            "type": "custom:paper-buttons-row",
+                            "styles": {
+                              "justify-content": "space-between;",
+                              "padding": "5px;",
+                              "width": "auto;",
+                              "margin-top": "-6px;",
+                              "margin-bottom": "0px;",
+                              "filter": "drop-shadow(0px 2px 2px rgba(0,0,0,0.5));"
+                            },
+                            "buttons": [
                               {
-                                "type": "entities",
-                                "style": "* {\npadding: 0 0 0 0px;\n}\nh1.card-header {\n  padding: 10px;\n  margin-top: -4px\n}\n#states {\n  padding: 10px;\n}\nha-card {\n  {% if is_state('person.jesus','home') %}\n  background: radial-gradient(at bottom, rgba(255,255,255, 0.26) 0%, rgba(43,55,78,0) 70%);\n  background-size: 140% 70%;\n  background-repeat: no-repeat;\n  background-position: 50% 100%;\n  background-color: #3e4c69;\n  transition: background 1.5s, background-position 2s, background-color 1.5s;\n  transition-delay: 0.6s;\n  {% else %}\n  transition: background 1.5s;\n  transition-delay: 0.2s;\n  background-color: var( --ha-card-background, var(--card-background-color, white) );\n  background-size: 140% 70%;\n  background-position: 50% 360%;\n  {% endif %}\n}\n",
-                                "entities": [
-                                  {
-                                    "entity": "person.jesus",
-                                    "name": " ",
-                                    "style": "hui-generic-entity-row {\n  margin-bottom: 14px;\n    margin-top: -10px;\n  padding: 0.6em;\n}\n"
-                                  },
-                                  {
-                                    "type": "section",
-                                    "label": "Jesus",
-                                    "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
-                                  },
-                                  {
-                                    "entity": "sensor.poco_f3_geocoded_location",
-                                    "name": "‎",
-                                    "icon": "none",
-                                    "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
-                                  }
-                                ],
-                                "show_header_toggle": true,
-                                "footer": {
-                                  "type": "custom:paper-buttons-row",
-                                  "styles": {
-                                    "justify-content": "space-between;",
-                                    "padding": "5px;",
-                                    "width": "auto;",
-                                    "margin-top": "0px;",
-                                    "margin-bottom": "0px;",
-                                    "margin-right": "4em;",
-                                    "filter": "drop-shadow(0px 2px 2px rgba(0,0,0,0.5));"
-                                  },
-                                  "buttons": [
-                                    {
-                                      "name": false,
-                                      "entity": "sensor.poco_f3_battery_level"
-                                    },
-                                    {
-                                      "name": false,
-                                      "entity": "device_tracker.keys",
-                                      "icon": "mdi:key-chain-variant"
-                                    },
-                                    {
-                                      "name": false,
-                                      "entity": "device_tracker.ipad",
-                                      "icon": "mdi:tablet"
+                                "name": false,
+                                "entity": "device_tracker.kaari_iphone",
+                                "icon": "mdi:cellphone"
+                              },
+                              {
+                                "name": false,
+                                "entity": "device_tracker.kaaris_ipad",
+                                "icon": "mdi:tablet"
+                              },
+                              {
+                                "name": false,
+                                "entity": "device_tracker.kaaris_apple_watch",
+                                "icon": "mdi:watch-variant"
+                              },
+                              {
+                                "name": false,
+                                "icon": "mdi:plus",
+                                "tap_action": null,
+                                "action": "fire-dom-event",
+                                "browser_mod": {
+                                  "service": "browser_mod.popup",
+                                  "data": {
+                                    "browser_id": "THIS",
+                                    "dismissable": true,
+                                    "content": {
+                                      "type": "entities",
+                                      "entities": [
+                                        {
+                                          "entity": "sensor.active_kilocalories"
+                                        }
+                                      ]
                                     }
-                                  ]
+                                  }
                                 }
                               }
                             ]
-                          },
-                          "expanded": false,
-                          "cards": [
-                            {
-                              "type": "grid",
-                              "columns": 1,
-                              "cards": [
-                                {
-                                  "type": "entities",
-                                  "entities": [
-                                    {
-                                      "entity": "sensor.jesus_time_away",
-                                      "type": "custom:multiple-entity-row",
-                                      "name": "Presence",
-                                      "state_header": "Away",
-                                      "secondary_info": "Last 24h",
-                                      "entities": [
-                                        {
-                                          "entity": "sensor.jesus_time_at_home",
-                                          "name": "Home"
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "section"
-                                    },
-                                    {
-                                      "entity": "sensor.poco_f3_battery_level",
-                                      "type": "custom:multiple-entity-row",
-                                      "name": "Phone",
-                                      "state_header": "Battery"
-                                    },
-                                    {
-                                      "entity": "sensor.macbook_internal_battery_level",
-                                      "type": "custom:multiple-entity-row",
-                                      "name": "Mackbook",
-                                      "state_header": "Battery"
-                                    },
-                                    {
-                                      "entity": "sensor.ipad_battery_level",
-                                      "type": "custom:multiple-entity-row",
-                                      "name": "iPad",
-                                      "state_header": "Battery"
-                                    },
-                                    {
-                                      "type": "section"
-                                    },
-                                    {
-                                      "type": "custom:vertical-stack-in-card",
-                                      "cards": [
-                                        {
-                                          "type": "history-graph",
-                                          "entities": [
-                                            {
-                                              "entity": "sensor.jesus_presence",
-                                              "name": "Presence"
-                                            }
-                                          ],
-                                          "hours_to_show": 24,
-                                          "refresh_interval": 0,
-                                          "style": "ha-card { \n  margin: -10px -10px -20px;\n}\n"
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "style": "ha-card {\n  margin: 14px 0px 2px !important;\n}\n"
-                                }
-                              ]
-                            }
-                          ]
+                          }
                         },
                         {
                           "type": "entities",
@@ -1369,9 +1374,22 @@
                               {
                                 "name": false,
                                 "icon": "mdi:plus",
-                                "tap_action": {
-                                  "action": "navigate",
-                                  "navigation_path": "/lovelace-dashboard/jesus"
+                                "tap_action": null,
+                                "action": "fire-dom-event",
+                                "browser_mod": {
+                                  "service": "browser_mod.popup",
+                                  "data": {
+                                    "browser_id": "THIS",
+                                    "dismissable": true,
+                                    "content": {
+                                      "type": "entities",
+                                      "entities": [
+                                        {
+                                          "entity": "sensor.active_kilocalories"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             ]
@@ -2091,18 +2109,178 @@
                   "entity": "sensor.living_room_hygrometer_battery"
                 },
                 {
-                  "entity": "sensor.plant_sensor_5a14_battery"
+                  "entity": "sensor.plant_1_battery"
                 },
                 {
-                  "entity": "sensor.plant_sensor_5a68_battery"
+                  "entity": "sensor.plant_3_battery"
                 },
                 {
-                  "entity": "sensor.plant_sensor_3_battery"
+                  "entity": "sensor.plant_4_battery"
                 },
                 {
-                  "entity": "sensor.mosquito_repellent_104f_battery"
+                  "entity": "sensor.mosquito_repellent_battery"
                 }
               ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.plant_1_conductivity"
+                },
+                {
+                  "entity": "sensor.plant_2_conductivity"
+                },
+                {
+                  "entity": "sensor.plant_3_conductivity"
+                },
+                {
+                  "entity": "sensor.plant_4_conductivity"
+                },
+                {
+                  "type": "section"
+                },
+                {
+                  "entity": "sensor.plant_1_moisture"
+                },
+                {
+                  "entity": "sensor.plant_2_moisture"
+                },
+                {
+                  "entity": "sensor.plant_3_moisture"
+                },
+                {
+                  "entity": "sensor.plant_4_moisture"
+                }
+              ]
+            },
+            {
+              "type": "custom:battery-state-card",
+              "sort_by_level": "desc",
+              "bulk_rename": [
+                {
+                  "from": "Battery"
+                }
+              ],
+              "entities": [
+                "sensor.plant_1_battery",
+                "sensor.plant_2_battery",
+                "sensor.plant_3_battery",
+                "sensor.plant_4_battery"
+              ]
+            },
+            {
+              "type": "custom:battery-state-card",
+              "sort_by_level": "desc",
+              "bulk_rename": [
+                {
+                  "from": "Battery"
+                },
+                {
+                  "from": "Level"
+                }
+              ],
+              "collapse": [
+                {
+                  "name": "Plant sensors",
+                  "secondary_info": "Battery levels {range}%",
+                  "icon": "mdi:flower"
+                }
+              ],
+              "entities": [
+                {
+                  "entity": "sensor.plant_1_battery"
+                },
+                {
+                  "entity": "sensor.plant_2_battery"
+                },
+                {
+                  "entity": "sensor.plant_3_battery"
+                },
+                {
+                  "entity": "sensor.plant_4_battery"
+                }
+              ],
+              "icon": "mdi:flower"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:battery-state-card",
+                  "sort_by_level": "desc",
+                  "bulk_rename": [
+                    {
+                      "from": "Battery"
+                    },
+                    {
+                      "from": "Level"
+                    }
+                  ],
+                  "collapse": [
+                    {
+                      "name": "Kentia Palm",
+                      "secondary_info": "'{{states(\"sensor.electricity_cost\")}}'\n",
+                      "icon": "mdi:palm-tree"
+                    }
+                  ],
+                  "entities": [
+                    {
+                      "entity": "sensor.bedroom_hygrometer_battery",
+                      "name": "Bedroom Hygrometer",
+                      "icon": "mdi:space-station"
+                    },
+                    {
+                      "entity": "sensor.living_room_hygrometer_battery",
+                      "name": "Living Room Hygrometer",
+                      "icon": "mdi:space-station"
+                    },
+                    {
+                      "entity": "sensor.mosquito_repellent_battery",
+                      "name": "Mosquito Repellent",
+                      "icon": "mdi:butterfly"
+                    },
+                    {
+                      "entity": "sensor.mosquito_repellent_consumable",
+                      "icon": "fas:tree-palm"
+                    }
+                  ],
+                  "icon": "mdi:flower"
+                },
+                {
+                  "type": "custom:battery-state-card",
+                  "sort_by_level": "desc",
+                  "collapse": [
+                    {
+                      "name": "Plants",
+                      "secondary_info": "{range}% ",
+                      "icon": "fas:trees"
+                    }
+                  ],
+                  "entities": [
+                    {
+                      "entity": "plant.golden_pothos"
+                    },
+                    {
+                      "entity": "plant.kentia_palm",
+                      "icon": "mdi:palm-tree"
+                    },
+                    {
+                      "entity": "plant.leaf_fig_tree",
+                      "icon": "mdi:plant"
+                    },
+                    {
+                      "entity": "plant.parlor_palm",
+                      "icon": "fas:leaf-oak"
+                    }
+                  ],
+                  "icon": "mdi:flower"
+                }
+              ]
+            },
+            {
+              "type": "plant-status",
+              "entity": "plant.kentia_palm"
             }
           ]
         },
@@ -2487,7 +2665,7 @@
                       "type": "history-graph",
                       "entities": [
                         {
-                          "entity": "sensor.jesus_presence",
+                          "entity": "person.jesus",
                           "name": "Presence"
                         }
                       ],

@@ -203,3 +203,12 @@ binary_sensor:
     name: "kaari's Apple Watch"
     count: 2
     scan_interval: 120
+
+group:
+  plants:
+    name: plants
+    entities:
+      - plant.golden_pothos
+      - plant.kentia_palm
+      - plant.leaf_fig_tree
+      - plant.parlor_palm
