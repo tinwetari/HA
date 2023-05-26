@@ -14,11 +14,12 @@
           "type": "sidebar",
           "cards": [
             {
+              "card": null,
               "type": "custom:mini-graph-card",
               "entities": [
                 {
                   "entity": "sensor.living_room_hygrometer_temperature",
-                  "color": "var(--accent-color)"
+                  "color": null
                 }
               ],
               "hours_to_show": 24,
@@ -28,7 +29,7 @@
               "aggregate_func": "avg",
               "line_width": 1,
               "bar_spacing": 10,
-              "height": 70,
+              "height": 40,
               "group": true,
               "show": {
                 "labels": false,
@@ -37,81 +38,89 @@
                 "name": false,
                 "icon": false
               },
-              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+              "style": "ha-card {\n  height: 84px;\n  position: absolute;\n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  opacity: 0.3;\n  margin-bottom: -90px;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
+              "type": "custom:paper-buttons-row",
+              "styles": {
+                "justify-content": "space-between",
+                "background": "none",
+                "margin": "24px 10px 16px",
+                "text-shadow": "0px 0px 20px var(--card-background-color);"
+              },
+              "buttons": [
                 {
-                  "type": "custom:paper-buttons-row",
+                  "layout": "name_state",
+                  "name": "{{ states('sensor.dayoftheweek')}}, {{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
+                  "state": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
                   "styles": {
-                    "justify-content": "space-between",
-                    "background": "none",
-                    "margin": "34px 10px 8px"
-                  },
-                  "buttons": [
-                    {
-                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
-                      "styles": {
-                        "name": {
-                          "font-weight": 300,
-                          "font-size": "40px",
-                          "letter-spacing": "-1px",
-                          "margin-left": "2px",
-                          "position": "relative",
-                          "left": "-10px"
-                        },
-                        "button": {
-                          "pointer-events": "none"
-                        }
-                      }
+                    "name": {
+                      "font-weight": 400,
+                      "font-size": "16px",
+                      "margin-left": 0,
+                      "display": "block",
+                      "text-align": "left",
+                      "float": "left",
+                      "width": "140px"
                     },
-                    {
-                      "layout": "name_state",
-                      "name": "{{ states('sensor.dayoftheweek')}} ",
-                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
-                      "styles": {
-                        "button": {
-                          "width": "200px",
-                          "height": "32px",
-                          "pointer-events": "none",
-                          "position": "relative"
-                        },
-                        "name": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "top": 0,
-                          "font-weight": 400,
-                          "white-space": "nowrap"
-                        },
-                        "state": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "bottom": 0,
-                          "font-weight": 600,
-                          "white-space": "nowrap"
-                        }
-                      }
+                    "button": {
+                      "pointer-events": "none",
+                      "align-items": "left",
+                      "width": "140px",
+                      "line-height": "1.6em"
+                    },
+                    "state": {
+                      "font-weight": 700,
+                      "font-size": "30px",
+                      "letter-spacing": "-1px",
+                      "margin-left": 0,
+                      "display": "block",
+                      "text-align": "left",
+                      "float": "left",
+                      "width": "140px"
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "custom:mushroom-chips-card",
-                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
-                  "alignment": "end",
-                  "chips": [
-                    {
-                      "type": "weather",
-                      "entity": "weather.forecast_home",
-                      "show_conditions": false,
-                      "show_temperature": true
+                  "layout": "icon|name_state",
+                  "name": "⌂ {{ states('sensor.living_room_hygrometer_temperature') }}°C",
+                  "state": "{{ state_attr('weather.openweathermap','temperature') }}°C",
+                  "image": "{% set mapper =\n  { 'breezy':'cloudy',\n    'clear-night':'night',\n    'clear':'day',\n    'mostly-clear':'day',\n    'clear-day':'day',\n    'cloudy':'cloudy',\n    'fog':'fog',\n    'hail':'rainy-7',\n    'haze':'haze',\n    'lightning':'thunder',\n    'mostly-cloudy':'cloudy',\n    'partlycloudy':'cloudy-day-3',\n    'partly-cloudy-day':'partly-cloudy-day',\n    'partly-cloudy-night':'partly-cloudy-night',\n    'rain':'rainy-4',\n    'scattered-showers':'rainy-3',\n    'showers':'rainy-6',\n    'sleet':'sleet',\n    'snow':'snowy-6',\n    'mostly-sunny':'day',\n    'sunny':'day',\n    'thunderstorm':'thunder',\n    'tornado':'tornado',\n    'wind':'wind',\n    'windy':'wind'} %}\n{% set state = states('weather.openweathermap') %}\n{% set weather = mapper[state] if state in mapper else 'weather' %}\n{% set path = '/local/icons/weather_icons/animated/' %}\n{% set ext = '.svg'%}\n  {{[path,weather,ext]|join('')}}\n",
+                  "styles": {
+                    "name": {
+                      "font-weight": 400,
+                      "font-size": "16px",
+                      "margin-left": 0,
+                      "display": "block",
+                      "text-align": "right",
+                      "width": "140px"
                     },
-                    {
-                      "type": "entity",
-                      "entity": "sensor.living_room_hygrometer_temperature",
-                      "icon": "mdi:home-thermometer-outline"
+                    "button": {
+                      "pointer-events": "none",
+                      "align-items": "right",
+                      "width": "140px",
+                      "line-height": "1.6em"
+                    },
+                    "state": {
+                      "font-weight": 600,
+                      "font-size": "30px",
+                      "letter-spacing": "-1px",
+                      "margin-left": 0,
+                      "display": "block",
+                      "text-align": "right",
+                      "width": "140px"
+                    },
+                    "icon": {
+                      "position": "absolute",
+                      "left": "2px",
+                      "transform": "scale(0.17)",
+                      "transform-origin": "0 19.5%",
+                      "top": "-48px;",
+                      "padding": "0;",
+                      "height": "380px !important;",
+                      "width": "380px !important;"
                     }
-                  ]
+                  }
                 }
               ]
             },
@@ -296,43 +305,39 @@
                               ]
                             },
                             {
-                              "type": "entities",
+                              "type": "custom:battery-state-card",
+                              "sort_by_level": "desc",
+                              "collapse": [
+                                {
+                                  "name": "Plants",
+                                  "group_id": "group.plants",
+                                  "icon": "mdi:tree-outline"
+                                }
+                              ],
                               "entities": [
                                 {
-                                  "type": "custom:battery-state-card",
-                                  "sort_by_level": "desc",
-                                  "bulk_rename": [
-                                    {
-                                      "from": "Battery"
-                                    },
-                                    {
-                                      "from": "Level"
-                                    }
-                                  ],
-                                  "collapse": [
-                                    {
-                                      "name": "Plants",
-                                      "secondary_info": "{range}% ",
-                                      "icon": "mdi:flower"
-                                    }
-                                  ],
-                                  "entities": [
-                                    {
-                                      "entity": "sensor.plant_1_battery"
-                                    },
-                                    {
-                                      "entity": "sensor.plant_2_battery"
-                                    },
-                                    {
-                                      "entity": "sensor.plant_3_battery"
-                                    },
-                                    {
-                                      "entity": "sensor.plant_4_battery"
-                                    }
-                                  ],
-                                  "icon": "mdi:flower"
+                                  "entity": "plant.golden_pothos",
+                                  "icon": "mdi:leaf"
+                                },
+                                {
+                                  "entity": "plant.kentia_palm",
+                                  "icon": "mdi:palm-tree"
+                                },
+                                {
+                                  "entity": "plant.leaf_fig_tree",
+                                  "icon": "mdi:tree"
+                                },
+                                {
+                                  "entity": "plant.parlor_palm",
+                                  "icon": "mdi:palm-tree"
                                 }
-                              ]
+                              ],
+                              "icon": "mdi:flower",
+                              "charging_state": {
+                                "state": "Problem",
+                                "color": "gray"
+                              },
+                              "tap_action": "more-info"
                             }
                           ]
                         }
@@ -1590,42 +1595,6 @@
                 }
               ],
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n}\n.type-custom-vertical-stack-in-card {\n  overflow: visible !important;\n}\n"
-            },
-            {
-              "type": "grid",
-              "square": true,
-              "columns": 2,
-              "cards": [
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "entity": "media_player.sky_q",
-                      "state_not": "off"
-                    }
-                  ],
-                  "card": [
-                    {
-                      "type": "custom:mini-media-player",
-                      "volume_stateless": false,
-                      "name": "Living Room",
-                      "group": false,
-                      "volume_step": "3",
-                      "entity": "media_player.nest_hub",
-                      "sound_mode": "full",
-                      "artwork": "full-cover",
-                      "toggle_power": false,
-                      "source": "icon",
-                      "icon": "phu:nest-hub",
-                      "hide": {
-                        "name": true,
-                        "source": true
-                      },
-                      "style": "ha-card {\n  height: 100% !important;\n  width: 100% !important;\n\n} \n"
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
