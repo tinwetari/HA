@@ -4,6 +4,68 @@
   "key": "lovelace.lovelace_dashboard",
   "data": {
     "config": {
+      "decluttering_templates": {
+        "footer_sticky_menu": {
+          "card": {
+            "type": "entities",
+            "entities": [
+              {
+                "type": "custom:paper-buttons-row",
+                "buttons": [
+                  {
+                    "tap_action": null,
+                    "action": "call-service",
+                    "service": "homeassistant.turn_off",
+                    "target": {
+                      "entity_id": "light.all"
+                    },
+                    "data": {},
+                    "entity": "light.all",
+                    "name": false,
+                    "style": {
+                      "button": {
+                        "width": "42px",
+                        "height": "42px",
+                        "background-color": "var( --ha-card-background, var(--card-background-color, white) );",
+                        "border-radius": "100%"
+                      },
+                      "icon": {
+                        "margin-top": 0
+                      },
+                      "name": {
+                        "margin-top": "20px"
+                      }
+                    }
+                  },
+                  {
+                    "layout": "icon",
+                    "icon": "mdi:cog",
+                    "name": "Settings",
+                    "tap_action": {
+                      "action": "navigate",
+                      "navigation_path": "/config/dashboard"
+                    },
+                    "style": {
+                      "button": {
+                        "width": "42px",
+                        "height": "42px"
+                      },
+                      "icon": {
+                        "margin-top": 0
+                      },
+                      "name": {
+                        "margin-top": "20px"
+                      }
+                    }
+                  }
+                ],
+                "style": "div.flex-box {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin: -14px !important;   \n}\n"
+              }
+            ],
+            "style": "ha-card { \n  \n  background: none !important;\n  margin: 0px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 70%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
+          }
+        }
+      },
       "title": "",
       "views": [
         {
@@ -904,7 +966,7 @@
                             "play_stop": false
                           },
                           "card_mod": {
-                            "style": "ha-card {\n  margin: 0 -15px;\n  margin-top: -15px;\n  }\n"
+                            "style": "ha-card {\n  margin: 0 -8px;\n  margin-top: -15px;\n  }\n"
                           }
                         }
                       ],
@@ -1237,6 +1299,16 @@
                 }
               ],
               "style": "ha-card { \n  margin: 14px 10px !important;\n  background: none;\n  box-shadow: none;\n}\n"
+            },
+            {
+              "type": "custom:vertical-stack-in-card",
+              "cards": [
+                {
+                  "type": "custom:decluttering-card",
+                  "template": "footer_sticky_menu"
+                }
+              ],
+              "style": ":host {\n  position: sticky !important;\n  bottom: 26px;\n  margin-bottom: 10px !important;\n  animation: 1.2s position ease-in-out;\n}\n@keyframes position {\n  0% { bottom: -80px; }\n  20% { bottom: -80px; }\n  70% { bottom: 26px; }\n  90% { bottom: 24px; }\n  100% { bottom: 26px; }\n}\nha-card { \n  background: none;\n  border-radius: 26px !important;\n  margin-top: 50%;\n}\n:host:before {\n  content: '';\n  display: block;\n  position: absolute;\n  bottom: -26px;\n  left: -8px;\n  padding-right: 16px;\n  height: 130px;\n  width: 100%; \n  background: linear-gradient(180deg, rgba(45, 56, 76, 0) 0%, rgba(35, 46, 66, 0.85) 50%);\n  pointer-events: none;\n  animation: 1.2s opacity ease-in-out;\n}\n@keyframes opacity {\n  0% { opacity: 0; }\n  20% { opacity: 0; }\n  100% { opacity: 1; }\n}\n### The sticky position don't work with Decluttering card\n### This is why I have to add the CSS here\n### If you don't use the UI you can use YAML anchors instead\n"
             }
           ]
         },
