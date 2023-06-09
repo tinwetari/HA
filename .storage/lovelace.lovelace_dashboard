@@ -5,6 +5,120 @@
   "data": {
     "config": {
       "decluttering_templates": {
+        "header_temperature_graph": {
+          "card": {
+            "type": "custom:mini-graph-card",
+            "entities": [
+              {
+                "entity": "sensor.living_room_hygrometer_temperature",
+                "color": null
+              }
+            ],
+            "hours_to_show": 24,
+            "hour24": true,
+            "animate": true,
+            "update_interval": 30,
+            "aggregate_func": "avg",
+            "line_width": 1,
+            "bar_spacing": 10,
+            "height": 40,
+            "group": true,
+            "show": {
+              "labels": false,
+              "fill": false,
+              "state": false,
+              "name": false,
+              "icon": false
+            },
+            "style": "ha-card {\n  height: 84px;\n  position: absolute;\n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  opacity: 0.3;\n  margin-bottom: -90px;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+          }
+        },
+        "header_main": {
+          "card": {
+            "type": "custom:paper-buttons-row",
+            "styles": {
+              "justify-content": "space-between",
+              "background": "none",
+              "margin": "24px 10px 16px",
+              "text-shadow": "0px 0px 20px var(--card-background-color);"
+            },
+            "buttons": [
+              {
+                "layout": "name_state",
+                "name": "{{ states('sensor.dayoftheweek')}}, {{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
+                "state": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
+                "styles": {
+                  "name": {
+                    "font-weight": 400,
+                    "font-size": "16px",
+                    "margin-left": 0,
+                    "display": "block",
+                    "text-align": "left",
+                    "float": "left",
+                    "width": "140px"
+                  },
+                  "button": {
+                    "pointer-events": "none",
+                    "align-items": "left",
+                    "width": "140px",
+                    "line-height": "1.6em"
+                  },
+                  "state": {
+                    "font-weight": 700,
+                    "font-size": "30px",
+                    "letter-spacing": "-1px",
+                    "margin-left": 0,
+                    "display": "block",
+                    "text-align": "left",
+                    "float": "left",
+                    "width": "140px"
+                  }
+                }
+              },
+              {
+                "layout": "icon|name_state",
+                "name": "⌂ {{ states('sensor.living_room_hygrometer_temperature') }}°C",
+                "state": "{{ state_attr('weather.openweathermap','temperature') }}°C",
+                "image": "{% set mapper =\n  { 'breezy':'cloudy',\n    'clear-night':'night',\n    'clear':'day',\n    'mostly-clear':'day',\n    'clear-day':'day',\n    'cloudy':'cloudy',\n    'fog':'fog',\n    'hail':'rainy-7',\n    'haze':'haze',\n    'lightning':'thunder',\n    'mostly-cloudy':'cloudy',\n    'partlycloudy':'cloudy-day-3',\n    'partly-cloudy-day':'partly-cloudy-day',\n    'partly-cloudy-night':'partly-cloudy-night',\n    'rain':'rainy-4',\n    'scattered-showers':'rainy-3',\n    'showers':'rainy-6',\n    'sleet':'sleet',\n    'snow':'snowy-6',\n    'mostly-sunny':'day',\n    'sunny':'day',\n    'thunderstorm':'thunder',\n    'tornado':'tornado',\n    'wind':'wind',\n    'windy':'wind'} %}\n{% set state = states('weather.openweathermap') %}\n{% set weather = mapper[state] if state in mapper else 'weather' %}\n{% set path = '/local/icons/weather_icons/animated/' %}\n{% set ext = '.svg'%}\n  {{[path,weather,ext]|join('')}}\n",
+                "styles": {
+                  "name": {
+                    "font-weight": 400,
+                    "font-size": "16px",
+                    "margin-left": 0,
+                    "display": "block",
+                    "text-align": "right",
+                    "width": "140px"
+                  },
+                  "button": {
+                    "pointer-events": "none",
+                    "align-items": "right",
+                    "width": "140px",
+                    "line-height": "1.6em"
+                  },
+                  "state": {
+                    "font-weight": 600,
+                    "font-size": "30px",
+                    "letter-spacing": "-1px",
+                    "margin-left": 0,
+                    "display": "block",
+                    "text-align": "right",
+                    "width": "140px"
+                  },
+                  "icon": {
+                    "position": "absolute",
+                    "left": "2px",
+                    "transform": "scale(0.17)",
+                    "transform-origin": "0 19.5%",
+                    "top": "-48px;",
+                    "padding": "0;",
+                    "height": "380px !important;",
+                    "width": "380px !important;"
+                  }
+                }
+              }
+            ]
+          }
+        },
         "footer_sticky_menu": {
           "card": {
             "type": "entities",
@@ -76,115 +190,12 @@
           "type": "sidebar",
           "cards": [
             {
-              "card": null,
-              "type": "custom:mini-graph-card",
-              "entities": [
-                {
-                  "entity": "sensor.living_room_hygrometer_temperature",
-                  "color": null
-                }
-              ],
-              "hours_to_show": 24,
-              "hour24": true,
-              "animate": true,
-              "update_interval": 30,
-              "aggregate_func": "avg",
-              "line_width": 1,
-              "bar_spacing": 10,
-              "height": 40,
-              "group": true,
-              "show": {
-                "labels": false,
-                "fill": false,
-                "state": false,
-                "name": false,
-                "icon": false
-              },
-              "style": "ha-card {\n  height: 84px;\n  position: absolute;\n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  opacity: 0.3;\n  margin-bottom: -90px;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+              "type": "custom:decluttering-card",
+              "template": "header_temperature_graph"
             },
             {
-              "type": "custom:paper-buttons-row",
-              "styles": {
-                "justify-content": "space-between",
-                "background": "none",
-                "margin": "24px 10px 16px",
-                "text-shadow": "0px 0px 20px var(--card-background-color);"
-              },
-              "buttons": [
-                {
-                  "layout": "name_state",
-                  "name": "{{ states('sensor.dayoftheweek')}}, {{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
-                  "state": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
-                  "styles": {
-                    "name": {
-                      "font-weight": 400,
-                      "font-size": "16px",
-                      "margin-left": 0,
-                      "display": "block",
-                      "text-align": "left",
-                      "float": "left",
-                      "width": "140px"
-                    },
-                    "button": {
-                      "pointer-events": "none",
-                      "align-items": "left",
-                      "width": "140px",
-                      "line-height": "1.6em"
-                    },
-                    "state": {
-                      "font-weight": 700,
-                      "font-size": "30px",
-                      "letter-spacing": "-1px",
-                      "margin-left": 0,
-                      "display": "block",
-                      "text-align": "left",
-                      "float": "left",
-                      "width": "140px"
-                    }
-                  }
-                },
-                {
-                  "layout": "icon|name_state",
-                  "name": "⌂ {{ states('sensor.living_room_hygrometer_temperature') }}°C",
-                  "state": "{{ state_attr('weather.openweathermap','temperature') }}°C",
-                  "image": "{% set mapper =\n  { 'breezy':'cloudy',\n    'clear-night':'night',\n    'clear':'day',\n    'mostly-clear':'day',\n    'clear-day':'day',\n    'cloudy':'cloudy',\n    'fog':'fog',\n    'hail':'rainy-7',\n    'haze':'haze',\n    'lightning':'thunder',\n    'mostly-cloudy':'cloudy',\n    'partlycloudy':'cloudy-day-3',\n    'partly-cloudy-day':'partly-cloudy-day',\n    'partly-cloudy-night':'partly-cloudy-night',\n    'rain':'rainy-4',\n    'scattered-showers':'rainy-3',\n    'showers':'rainy-6',\n    'sleet':'sleet',\n    'snow':'snowy-6',\n    'mostly-sunny':'day',\n    'sunny':'day',\n    'thunderstorm':'thunder',\n    'tornado':'tornado',\n    'wind':'wind',\n    'windy':'wind'} %}\n{% set state = states('weather.openweathermap') %}\n{% set weather = mapper[state] if state in mapper else 'weather' %}\n{% set path = '/local/icons/weather_icons/animated/' %}\n{% set ext = '.svg'%}\n  {{[path,weather,ext]|join('')}}\n",
-                  "styles": {
-                    "name": {
-                      "font-weight": 400,
-                      "font-size": "16px",
-                      "margin-left": 0,
-                      "display": "block",
-                      "text-align": "right",
-                      "width": "140px"
-                    },
-                    "button": {
-                      "pointer-events": "none",
-                      "align-items": "right",
-                      "width": "140px",
-                      "line-height": "1.6em"
-                    },
-                    "state": {
-                      "font-weight": 600,
-                      "font-size": "30px",
-                      "letter-spacing": "-1px",
-                      "margin-left": 0,
-                      "display": "block",
-                      "text-align": "right",
-                      "width": "140px"
-                    },
-                    "icon": {
-                      "position": "absolute",
-                      "left": "2px",
-                      "transform": "scale(0.17)",
-                      "transform-origin": "0 19.5%",
-                      "top": "-48px;",
-                      "padding": "0;",
-                      "height": "380px !important;",
-                      "width": "380px !important;"
-                    }
-                  }
-                }
-              ]
+              "type": "custom:decluttering-card",
+              "template": "header_main"
             },
             {
               "type": "custom:expander-card",
@@ -1065,12 +1076,6 @@
                               "type": "section",
                               "label": "Kaari",
                               "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
-                            },
-                            {
-                              "entity": "sensor.poco_f3_geocoded_location",
-                              "name": "‎",
-                              "icon": "none",
-                              "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
                             }
                           ],
                           "footer": {
@@ -2130,106 +2135,12 @@
           "badges": [],
           "cards": [
             {
-              "type": "custom:mini-graph-card",
-              "entities": [
-                {
-                  "entity": "sensor.living_room_hygrometer_temperature",
-                  "color": "var(--accent-color)"
-                }
-              ],
-              "hours_to_show": 24,
-              "hour24": true,
-              "animate": true,
-              "update_interval": 30,
-              "aggregate_func": "avg",
-              "line_width": 1,
-              "bar_spacing": 10,
-              "height": 70,
-              "group": true,
-              "show": {
-                "labels": false,
-                "fill": false,
-                "state": false,
-                "name": false,
-                "icon": false
-              },
-              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+              "type": "custom:decluttering-card",
+              "template": "header_temperature_graph"
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "justify-content": "space-between",
-                    "background": "none",
-                    "margin": "34px 10px 8px"
-                  },
-                  "buttons": [
-                    {
-                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
-                      "styles": {
-                        "name": {
-                          "font-weight": 300,
-                          "font-size": "40px",
-                          "letter-spacing": "-1px",
-                          "margin-left": "2px",
-                          "position": "relative",
-                          "left": "-10px"
-                        },
-                        "button": {
-                          "pointer-events": "none"
-                        }
-                      }
-                    },
-                    {
-                      "layout": "name_state",
-                      "name": "{{ states('sensor.dayoftheweek')}} ",
-                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
-                      "styles": {
-                        "button": {
-                          "width": "200px",
-                          "height": "32px",
-                          "pointer-events": "none",
-                          "position": "relative"
-                        },
-                        "name": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "top": 0,
-                          "font-weight": 400,
-                          "white-space": "nowrap"
-                        },
-                        "state": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "bottom": 0,
-                          "font-weight": 600,
-                          "white-space": "nowrap"
-                        }
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:mushroom-chips-card",
-                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
-                  "alignment": "end",
-                  "chips": [
-                    {
-                      "type": "weather",
-                      "entity": "weather.forecast_home",
-                      "show_conditions": false,
-                      "show_temperature": true
-                    },
-                    {
-                      "type": "entity",
-                      "entity": "sensor.living_room_hygrometer_temperature",
-                      "icon": "mdi:home-thermometer-outline"
-                    }
-                  ]
-                }
-              ]
+              "type": "custom:decluttering-card",
+              "template": "header_main"
             },
             {
               "type": "entities",
@@ -2535,106 +2446,12 @@
           "badges": [],
           "cards": [
             {
-              "type": "custom:mini-graph-card",
-              "entities": [
-                {
-                  "entity": "sensor.living_room_hygrometer_temperature",
-                  "color": "var(--accent-color)"
-                }
-              ],
-              "hours_to_show": 24,
-              "hour24": true,
-              "animate": true,
-              "update_interval": 30,
-              "aggregate_func": "avg",
-              "line_width": 1,
-              "bar_spacing": 10,
-              "height": 70,
-              "group": true,
-              "show": {
-                "labels": false,
-                "fill": false,
-                "state": false,
-                "name": false,
-                "icon": false
-              },
-              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+              "type": "custom:decluttering-card",
+              "template": "header_temperature_graph"
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "justify-content": "space-between",
-                    "background": "none",
-                    "margin": "34px 10px 8px"
-                  },
-                  "buttons": [
-                    {
-                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
-                      "styles": {
-                        "name": {
-                          "font-weight": 300,
-                          "font-size": "40px",
-                          "letter-spacing": "-1px",
-                          "margin-left": "2px",
-                          "position": "relative",
-                          "left": "-10px"
-                        },
-                        "button": {
-                          "pointer-events": "none"
-                        }
-                      }
-                    },
-                    {
-                      "layout": "name_state",
-                      "name": "{{ states('sensor.dayoftheweek')}} ",
-                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
-                      "styles": {
-                        "button": {
-                          "width": "200px",
-                          "height": "32px",
-                          "pointer-events": "none",
-                          "position": "relative"
-                        },
-                        "name": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "top": 0,
-                          "font-weight": 400,
-                          "white-space": "nowrap"
-                        },
-                        "state": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "bottom": 0,
-                          "font-weight": 600,
-                          "white-space": "nowrap"
-                        }
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:mushroom-chips-card",
-                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
-                  "alignment": "end",
-                  "chips": [
-                    {
-                      "type": "weather",
-                      "entity": "weather.forecast_home",
-                      "show_conditions": false,
-                      "show_temperature": true
-                    },
-                    {
-                      "type": "entity",
-                      "entity": "sensor.living_room_hygrometer_temperature",
-                      "icon": "mdi:home-thermometer-outline"
-                    }
-                  ]
-                }
-              ]
+              "type": "custom:decluttering-card",
+              "template": "header_main"
             },
             {
               "type": "entities",
@@ -3379,106 +3196,12 @@
           "badges": [],
           "cards": [
             {
-              "type": "custom:mini-graph-card",
-              "entities": [
-                {
-                  "entity": "sensor.living_room_hygrometer_temperature",
-                  "color": "var(--accent-color)"
-                }
-              ],
-              "hours_to_show": 24,
-              "hour24": true,
-              "animate": true,
-              "update_interval": 30,
-              "aggregate_func": "avg",
-              "line_width": 1,
-              "bar_spacing": 10,
-              "height": 70,
-              "group": true,
-              "show": {
-                "labels": false,
-                "fill": false,
-                "state": false,
-                "name": false,
-                "icon": false
-              },
-              "style": "ha-card { \n  box-shadow: none;\n  background: none;\n  border-radius: 0;\n  margin-bottom: -90px;\n  opacity: 0.3;\n  margin-left: -0.6em;\n  margin-right: -0.6em;\n}\n"
+              "type": "custom:decluttering-card",
+              "template": "header_temperature_graph"
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:paper-buttons-row",
-                  "styles": {
-                    "justify-content": "space-between",
-                    "background": "none",
-                    "margin": "34px 10px 8px"
-                  },
-                  "buttons": [
-                    {
-                      "name": "{{ now().strftime('%H') }}:{{ now().strftime('%M')}}",
-                      "styles": {
-                        "name": {
-                          "font-weight": 300,
-                          "font-size": "40px",
-                          "letter-spacing": "-1px",
-                          "margin-left": "2px",
-                          "position": "relative",
-                          "left": "-10px"
-                        },
-                        "button": {
-                          "pointer-events": "none"
-                        }
-                      }
-                    },
-                    {
-                      "layout": "name_state",
-                      "name": "{{ states('sensor.dayoftheweek')}} ",
-                      "state": "{{ states('sensor.dateofthemonth') }} {{ states('sensor.month') }}",
-                      "styles": {
-                        "button": {
-                          "width": "200px",
-                          "height": "32px",
-                          "pointer-events": "none",
-                          "position": "relative"
-                        },
-                        "name": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "top": 0,
-                          "font-weight": 400,
-                          "white-space": "nowrap"
-                        },
-                        "state": {
-                          "position": "absolute",
-                          "left": "-10px",
-                          "bottom": 0,
-                          "font-weight": 600,
-                          "white-space": "nowrap"
-                        }
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:mushroom-chips-card",
-                  "style": "ha-card {\n  --chip-box-shadow: none;\n  --chip-background: none;\n  --chip-spacing: none;\n\n  --chip-height: 37px;\n  margin:  37px 10px\n}\n",
-                  "alignment": "end",
-                  "chips": [
-                    {
-                      "type": "weather",
-                      "entity": "weather.forecast_home",
-                      "show_conditions": false,
-                      "show_temperature": true
-                    },
-                    {
-                      "type": "entity",
-                      "entity": "sensor.living_room_hygrometer_temperature",
-                      "icon": "mdi:home-thermometer-outline"
-                    }
-                  ]
-                }
-              ]
+              "type": "custom:decluttering-card",
+              "template": "header_main"
             },
             {
               "type": "entities",
