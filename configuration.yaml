@@ -153,6 +153,7 @@ light:
     entities:
       - light.bedside
       - light.bedroom_ceiling
+      - light.kitchen
       - light.ceiling
       - light.floor_lamp
 
@@ -217,6 +218,7 @@ group:
     entities:
       - light.bedside
       - light.bedroom_ceiling
+      - light.kitchen
       - light.ceiling
       - light.floor_lamp
       - media_player.sky_q
