@@ -145,13 +145,15 @@ light:
   - platform: group
     name: Bedroom
     entities:
-      - light.bedside
+      - light.bedside_kaari
       - light.bedroom_ceiling
+      - light.bedside_jesus
 
   - platform: group
     name: All
     entities:
-      - light.bedside
+      - light.bedside_kaari
+      - light.bedside_jesus
       - light.bedroom_ceiling
       - light.kitchen
       - light.ceiling
@@ -216,10 +218,10 @@ group:
   all:
     name: all
     entities:
-      - light.bedside
+      - light.bedside_kaari
+      - light.bedside_jesus
       - light.bedroom_ceiling
       - light.kitchen
       - light.ceiling
       - light.floor_lamp
       - media_player.sky_q
-

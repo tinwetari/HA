@@ -242,11 +242,11 @@
                       },
                       {
                         "layout": "icon",
-                        "icon": "mdi:window-shutter",
-                        "name": "Volets",
+                        "icon": "mdi:restart",
+                        "name": "Home Assistant",
                         "tap_action": {
-                          "action": "navigate",
-                          "navigation_path": "/lovelace/volets"
+                          "action": "call-service",
+                          "service": "homeassistant.restart"
                         },
                         "style": {
                           "button": {
@@ -948,7 +948,11 @@
                           "label": "Lights"
                         },
                         {
-                          "entity": "light.bedside",
+                          "entity": "light.bedside_kaari",
+                          "icon": "mdi:lamp-outline"
+                        },
+                        {
+                          "entity": "light.bedside_kaari",
                           "icon": "mdi:lamp-outline"
                         },
                         {
@@ -1022,7 +1026,7 @@
                   "tap_action": {
                     "action": "toggle"
                   },
-                  "icon": "mdi:ceiling-light"
+                  "icon": "mdi:fridge"
                 },
                 "action_button": {
                   "show": false
@@ -2355,75 +2359,8 @@
               "style": "ha-card { \n  \n  background: none !important;\n  margin: 15px 10px; \n  border-radius: 26px;\n}\nha-card:before { \n  content: '';\n  display: block;\n  background: var( --ha-card-background, var(--card-background-color, white) );\n  position: absolute;\n  right: 0;\n  width: 76%;\n  height: 54px;\n  border-radius: 26px;\n}\n"
             },
             {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "binary_sensor.sonnette_motion",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "custom:vertical-stack-in-card",
-                "cards": [
-                  {
-                    "type": "custom:frigate-card",
-                    "cameras": [
-                      {
-                        "camera_entity": "camera.sonnette_pir",
-                        "live_provider": "frigate-jsmpeg",
-                        "title": "Entrée"
-                      }
-                    ],
-                    "menu": {
-                      "buttons": {
-                        "frigate": {
-                          "enabled": false
-                        }
-                      },
-                      "style": "none"
-                    }
-                  }
-                ],
-                "style": "ha-card {\n  margin: 15px 20px;\n  overflow: hidden !important;\n  border-radius: 24px !important;\n}\n            \n"
-              }
-            },
-            {
               "type": "entities",
               "entities": [
-                {
-                  "type": "custom:paper-buttons-row",
-                  "buttons": [
-                    {
-                      "icon": "mdi:account",
-                      "layout": "icon|name",
-                      "name": "Jesus",
-                      "style": {
-                        "name": {
-                          "margin-left": "18px",
-                          "font-size": "18px",
-                          "font-weight": 600
-                        }
-                      }
-                    },
-                    {
-                      "icon": "mdi:close",
-                      "layout": "icon",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/"
-                      },
-                      "style": {
-                        "icon": {
-                          "--mdc-icon-size": "34px"
-                        }
-                      }
-                    }
-                  ],
-                  "style": "div.flex-box {\n  margin-top: -6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n"
-                },
-                {
-                  "type": "section"
-                },
                 {
                   "entity": "sensor.total_steps",
                   "type": "custom:multiple-entity-row",
