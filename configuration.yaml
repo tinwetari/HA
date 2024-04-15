@@ -141,23 +141,6 @@ light:
 
 
 
-#vacuum cleaner
-camera:
-  - platform: xiaomi_cloud_map_extractor
-    host: 192.168.0.46
-    token: !secret vacubot_token
-    username: !secret vacubot_username
-    password: !secret vacubot_password
-    draw: ["all"]
-    colors:
-      color_map_outside: [32, 41, 60]
-      color_path: [32, 41, 60]
-      color_robo: [32, 41, 60]
-    map_transformation:
-      scale: 2
-    attributes:
-      - calibration_points
-
 google_assistant:
   project_id: home-assistant-18814
   service_account: !include SERVICE_ACCOUNT.json
