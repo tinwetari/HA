@@ -1,16 +1,17 @@
 """Helper functions for the plant integration"""
+
 from __future__ import annotations
 
 import logging
 from typing import Any
 
-from slugify import slugify
+from async_timeout import timeout
 import voluptuous as vol
 
 from homeassistant.components.persistent_notification import (
     create as create_notification,
 )
-from homeassistant.const import ATTR_ENTITY_PICTURE, ATTR_NAME, TEMP_CELSIUS
+from homeassistant.const import ATTR_ENTITY_PICTURE, ATTR_NAME, UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.temperature import display_temp
@@ -70,8 +71,8 @@ from .const import (
     OPB_DISPLAY_PID,
     OPB_GET,
     OPB_SEARCH,
-    OPB_SEARCH_RESULT,
     PPFD_DLI_FACTOR,
+    REQUEST_TIMEOUT,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -102,32 +103,24 @@ class PlantHelper:
             return None
 
         try:
-            plant_search = await self.hass.services.async_call(
-                domain=DOMAIN_PLANTBOOK,
-                service=OPB_SEARCH,
-                service_data={"alias": species},
-                blocking=True,
-                limit=30,
-            )
-        except KeyError:
-            _LOGGER.warning("Openplantook does not work")
-            return None
-        if plant_search:
-            _LOGGER.info(
-                "Result: %s",
-                self.hass.states.get(f"{DOMAIN_PLANTBOOK}.{OPB_SEARCH_RESULT}"),
-            )
-            if (
-                int(
-                    self.hass.states.get(
-                        f"{DOMAIN_PLANTBOOK}.{OPB_SEARCH_RESULT}"
-                    ).state
+            async with timeout(REQUEST_TIMEOUT):
+                plant_search_result = await self.hass.services.async_call(
+                    domain=DOMAIN_PLANTBOOK,
+                    service=OPB_SEARCH,
+                    service_data={"alias": species},
+                    blocking=True,
+                    return_response=True,
                 )
-                > 0
-            ):
-                return self.hass.states.get(
-                    f"{DOMAIN_PLANTBOOK}.{OPB_SEARCH_RESULT}"
-                ).attributes
+        except TimeoutError:
+            _LOGGER.warning("Openplantook request timed out")
+            return None
+        except Exception as ex:
+            _LOGGER.warning("Openplantook does not work, error: %s", ex)
+            return None
+        if bool(plant_search_result):
+            _LOGGER.info("Result: %s", plant_search_result)
+
+            return plant_search_result
         return None
 
     async def openplantbook_get(self, species: str) -> dict[str:Any] | None:
@@ -137,20 +130,23 @@ class PlantHelper:
         if not species or species == "":
             return None
 
-        plant_get = await self.hass.services.async_call(
-            domain=DOMAIN_PLANTBOOK,
-            service=OPB_GET,
-            service_data={ATTR_SPECIES: species.lower()},
-            blocking=True,
-            limit=30,
-        )
-        if plant_get:
-            opb_plant = self.hass.states.get(
-                f"{DOMAIN_PLANTBOOK}.{slugify(species, separator='_')}"
-            )
-            _LOGGER.debug("Result for %s: %s", species, opb_plant)
-            if opb_plant is not None:
-                return opb_plant.attributes
+        try:
+            async with timeout(REQUEST_TIMEOUT):
+                plant_get_result = await self.hass.services.async_call(
+                    domain=DOMAIN_PLANTBOOK,
+                    service=OPB_GET,
+                    service_data={ATTR_SPECIES: species.lower()},
+                    blocking=True,
+                    return_response=True,
+                )
+        except TimeoutError:
+            _LOGGER.warning("Openplantook request timed out")
+        except Exception as ex:
+            _LOGGER.warning("Openplantook does not work, error: %s", ex)
+            return None
+        if bool(plant_get_result):
+            _LOGGER.debug("Result for %s: %s", species, plant_get_result)
+            return plant_get_result
 
         _LOGGER.info("Did not find '%s' in OpenPlantbook", species)
         create_notification(
@@ -170,13 +166,13 @@ class PlantHelper:
         max_temp = display_temp(
             self.hass,
             DEFAULT_MAX_TEMPERATURE,
-            TEMP_CELSIUS,
+            UnitOfTemperature.CELSIUS,
             0,
         )
         min_temp = display_temp(
             self.hass,
             DEFAULT_MIN_TEMPERATURE,
-            TEMP_CELSIUS,
+            UnitOfTemperature.CELSIUS,
             0,
         )
         max_conductivity = DEFAULT_MAX_CONDUCTIVITY
@@ -245,7 +241,7 @@ class PlantHelper:
                     CONF_PLANTBOOK_MAPPING[CONF_MAX_TEMPERATURE],
                     DEFAULT_MAX_TEMPERATURE,
                 ),
-                TEMP_CELSIUS,
+                UnitOfTemperature.CELSIUS,
                 0,
             )
             min_temp = display_temp(
@@ -254,7 +250,7 @@ class PlantHelper:
                     CONF_PLANTBOOK_MAPPING[CONF_MIN_TEMPERATURE],
                     DEFAULT_MIN_TEMPERATURE,
                 ),
-                TEMP_CELSIUS,
+                UnitOfTemperature.CELSIUS,
                 0,
             )
             opb_mmol = opb_plant.get(CONF_PLANTBOOK_MAPPING[CONF_MAX_MMOL])

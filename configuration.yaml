@@ -111,28 +111,8 @@ sensor:
             off
           {% endif %}
 
-  #peloton
-  - platform: template
-    sensors:
-      peloton_state:
-        value_template: >-
-          {% if is_state("sensor.jesus_on_peloton_cadence_current","0") %}
-            off
-          {% else %}
-            on
-          {% endif %}
 
-  - platform: systemmonitor
-    resources:
-      - type: disk_use
-        arg: /config
-      - type: disk_free
-        arg: /config
-      - type: memory_use
-      - type: memory_free
-      - type: processor_use
-      - type: processor_temperature
-      - type: last_boot
+
 
 #lights
 light:
@@ -159,14 +139,7 @@ light:
       - light.ceiling
       - light.floor_lamp
 
-device_tracker:
-  - platform: ping
-    track_new_devices: False
-    consider_home: 0:10
-    hosts:
-      kaari_iphone: 192.168.0.10
-      kaaris_ipad: 192.168.0.20
-      kaaris_apple_watch: 192.168.0.23
+
 
 #vacuum cleaner
 camera:
@@ -190,22 +163,7 @@ google_assistant:
   service_account: !include SERVICE_ACCOUNT.json
   report_state: true
 
-binary_sensor:
-  - platform: ping
-    host: 192.168.0.10
-    name: "kaari's iPhone"
-    count: 2
-    scan_interval: 30
-  - platform: ping
-    host: 192.168.0.20
-    name: "kaari's iPad"
-    count: 2
-    scan_interval: 30
-  - platform: ping
-    host: 192.168.0.23
-    name: "kaari's Apple Watch"
-    count: 2
-    scan_interval: 120
+
 
 group:
   plants:

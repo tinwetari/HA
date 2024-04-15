@@ -1,4 +1,5 @@
 """Support for monitoring plants."""
+
 from __future__ import annotations
 
 import logging
@@ -299,7 +300,12 @@ def ws_get_info(
         plant_entity = hass.data[DOMAIN][key][ATTR_PLANT]
         if plant_entity.entity_id == msg["entity_id"]:
             # _LOGGER.debug("Sending websocket response: %s", plant_entity.websocket_info)
-            connection.send_result(msg["id"], {"result": plant_entity.websocket_info})
+            try:
+                connection.send_result(
+                    msg["id"], {"result": plant_entity.websocket_info}
+                )
+            except ValueError as e:
+                _LOGGER.warning(e)
             return
     connection.send_error(
         msg["id"], "entity_not_found", f"Entity {msg['entity_id']} not found"
@@ -621,104 +627,120 @@ class PlantDevice(Entity):
         """Run on every update of the entities"""
 
         new_state = STATE_OK
+        known_state = False
 
-        if (
-            self.sensor_moisture is not None
-            and self.sensor_moisture.state != STATE_UNKNOWN
-            and self.sensor_moisture.state != STATE_UNAVAILABLE
-            and self.sensor_moisture.state is not None
-        ):
-            if float(self.sensor_moisture.state) < float(self.min_moisture.state):
-                self.moisture_status = STATE_LOW
-                if self.moisture_trigger:
-                    new_state = STATE_PROBLEM
-            elif float(self.sensor_moisture.state) > float(self.max_moisture.state):
-                self.moisture_status = STATE_HIGH
-                if self.moisture_trigger:
-                    new_state = STATE_PROBLEM
-            else:
-                self.moisture_status = STATE_OK
-
-        if (
-            self.sensor_conductivity is not None
-            and self.sensor_conductivity.state != STATE_UNKNOWN
-            and self.sensor_conductivity.state != STATE_UNAVAILABLE
-            and self.sensor_conductivity.state is not None
-        ):
-            if float(self.sensor_conductivity.state) < float(
-                self.min_conductivity.state
+        if self.sensor_moisture is not None:
+            moisture = getattr(
+                self._hass.states.get(self.sensor_moisture.entity_id), "state", None
+            )
+            if (
+                moisture is not None
+                and moisture != STATE_UNKNOWN
+                and moisture != STATE_UNAVAILABLE
             ):
-                self.conductivity_status = STATE_LOW
-                if self.conductivity_trigger:
-                    new_state = STATE_PROBLEM
-            elif float(self.sensor_conductivity.state) > float(
-                self.max_conductivity.state
-            ):
-                self.conductivity_status = STATE_HIGH
-                if self.conductivity_trigger:
-                    new_state = STATE_PROBLEM
-            else:
-                self.conductivity_status = STATE_OK
+                known_state = True
+                if float(moisture) < float(self.min_moisture.state):
+                    self.moisture_status = STATE_LOW
+                    if self.moisture_trigger:
+                        new_state = STATE_PROBLEM
+                elif float(moisture) > float(self.max_moisture.state):
+                    self.moisture_status = STATE_HIGH
+                    if self.moisture_trigger:
+                        new_state = STATE_PROBLEM
+                else:
+                    self.moisture_status = STATE_OK
 
-        if (
-            self.sensor_temperature is not None
-            and self.sensor_temperature.state != STATE_UNKNOWN
-            and self.sensor_temperature.state != STATE_UNAVAILABLE
-            and self.sensor_temperature.state is not None
-        ):
-            if float(self.sensor_temperature.state) < float(self.min_temperature.state):
-                self.temperature_status = STATE_LOW
-                if self.temperature_trigger:
-                    new_state = STATE_PROBLEM
-            elif float(self.sensor_temperature.state) > float(
-                self.max_temperature.state
+        if self.sensor_conductivity is not None:
+            conductivity = getattr(
+                self._hass.states.get(self.sensor_conductivity.entity_id), "state", None
+            )
+            if (
+                conductivity is not None
+                and conductivity != STATE_UNKNOWN
+                and conductivity != STATE_UNAVAILABLE
             ):
-                self.temperature_status = STATE_HIGH
-                if self.temperature_trigger:
-                    new_state = STATE_PROBLEM
-            else:
-                self.temperature_status = STATE_OK
+                known_state = True
+                if float(conductivity) < float(self.min_conductivity.state):
+                    self.conductivity_status = STATE_LOW
+                    if self.conductivity_trigger:
+                        new_state = STATE_PROBLEM
+                elif float(conductivity) > float(self.max_conductivity.state):
+                    self.conductivity_status = STATE_HIGH
+                    if self.conductivity_trigger:
+                        new_state = STATE_PROBLEM
+                else:
+                    self.conductivity_status = STATE_OK
 
-        if (
-            self.sensor_humidity is not None
-            and self.sensor_humidity.state != STATE_UNKNOWN
-            and self.sensor_humidity.state != STATE_UNAVAILABLE
-            and self.sensor_humidity.state is not None
-        ):
-            if float(self.sensor_humidity.state) < float(self.min_humidity.state):
-                self.humidity_status = STATE_LOW
-                if self.humidity_trigger:
-                    new_state = STATE_PROBLEM
-            elif float(self.sensor_humidity.state) > float(self.max_humidity.state):
-                self.humidity_status = STATE_HIGH
-                if self.humidity_trigger:
-                    new_state = STATE_PROBLEM
-            else:
-                self.humidity_status = STATE_OK
+        if self.sensor_temperature is not None:
+            temperature = getattr(
+                self._hass.states.get(self.sensor_temperature.entity_id), "state", None
+            )
+            if (
+                temperature is not None
+                and temperature != STATE_UNKNOWN
+                and temperature != STATE_UNAVAILABLE
+            ):
+                known_state = True
+                if float(temperature) < float(self.min_temperature.state):
+                    self.temperature_status = STATE_LOW
+                    if self.temperature_trigger:
+                        new_state = STATE_PROBLEM
+                elif float(temperature) > float(self.max_temperature.state):
+                    self.temperature_status = STATE_HIGH
+                    if self.temperature_trigger:
+                        new_state = STATE_PROBLEM
+                else:
+                    self.temperature_status = STATE_OK
+
+        if self.sensor_humidity is not None:
+            humidity = getattr(
+                self._hass.states.get(self.sensor_humidity.entity_id), "state", None
+            )
+            if (
+                humidity is not None
+                and humidity != STATE_UNKNOWN
+                and humidity != STATE_UNAVAILABLE
+            ):
+                known_state = True
+                if float(humidity) < float(self.min_humidity.state):
+                    self.humidity_status = STATE_LOW
+                    if self.humidity_trigger:
+                        new_state = STATE_PROBLEM
+                elif float(humidity) > float(self.max_humidity.state):
+                    self.humidity_status = STATE_HIGH
+                    if self.humidity_trigger:
+                        new_state = STATE_PROBLEM
+                else:
+                    self.humidity_status = STATE_OK
 
         # Check the instant values for illuminance against "max"
         # Ignoring "min" value for illuminance as it would probably trigger every night
-        if (
-            self.sensor_illuminance is not None
-            and self.sensor_illuminance.state != STATE_UNKNOWN
-            and self.sensor_illuminance.state != STATE_UNAVAILABLE
-            and self.sensor_illuminance.state is not None
-        ):
-            if float(self.sensor_illuminance.state) > float(self.max_illuminance.state):
-                self.illuminance_status = STATE_HIGH
-                if self.illuminance_trigger:
-                    new_state = STATE_PROBLEM
-            else:
-                self.illuminance_status = STATE_OK
+        if self.sensor_illuminance is not None:
+            illuminance = getattr(
+                self._hass.states.get(self.sensor_illuminance.entity_id), "state", None
+            )
+            if (
+                illuminance is not None
+                and illuminance != STATE_UNKNOWN
+                and illuminance != STATE_UNAVAILABLE
+            ):
+                known_state = True
+                if float(illuminance) > float(self.max_illuminance.state):
+                    self.illuminance_status = STATE_HIGH
+                    if self.illuminance_trigger:
+                        new_state = STATE_PROBLEM
+                else:
+                    self.illuminance_status = STATE_OK
 
         # - Checking Low values would create "problem" every night...
         # Check DLI from the previous day against max/min DLI
         if (
             self.dli is not None
-            and self.dli.state != STATE_UNKNOWN
-            and self.dli.state != STATE_UNAVAILABLE
+            and self.dli.native_value != STATE_UNKNOWN
+            and self.dli.native_value != STATE_UNAVAILABLE
             and self.dli.state is not None
         ):
+            known_state = True
             if float(self.dli.extra_state_attributes["last_period"]) > 0 and float(
                 self.dli.extra_state_attributes["last_period"]
             ) < float(self.min_dli.state):
@@ -733,6 +755,9 @@ class PlantDevice(Entity):
                     new_state = STATE_PROBLEM
             else:
                 self.dli_status = STATE_OK
+
+        if not known_state:
+            new_state = STATE_UNKNOWN
 
         self._attr_state = new_state
         self.update_registry()

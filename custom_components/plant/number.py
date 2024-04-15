@@ -1,4 +1,5 @@
 """Max/Min threshold classes for the plant device"""
+
 from __future__ import annotations
 
 import logging
@@ -12,8 +13,7 @@ from homeassistant.const import (
     LIGHT_LUX,
     PERCENTAGE,
     STATE_UNKNOWN,
-    TEMP_CELSIUS,
-    TEMP_FAHRENHEIT,
+    UnitOfTemperature,
 )
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
@@ -24,7 +24,7 @@ from homeassistant.helpers.entity import (
 )
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_state_change_event
-from homeassistant.util.temperature import convert as convert_temperature
+from homeassistant.util.unit_conversion import TemperatureConverter
 
 from .const import (
     ATTR_CONDUCTIVITY,
@@ -350,10 +350,10 @@ class PlantMaxTemperature(PlantMinMax):
             and new_attributes.get(ATTR_UNIT_OF_MEASUREMENT) == "°C"
         ):
             new_state = round(
-                convert_temperature(
+                TemperatureConerter.convert(
                     temperature=float(self.state),
-                    from_unit=TEMP_FAHRENHEIT,
-                    to_unit=TEMP_CELSIUS,
+                    from_unit=UnitOfTemperature.FAHRENHEIT,
+                    to_unit=UnitOfTemperature.CELSIUS,
                 )
             )
             _LOGGER.debug(
@@ -367,10 +367,10 @@ class PlantMaxTemperature(PlantMinMax):
             and new_attributes.get(ATTR_UNIT_OF_MEASUREMENT) == "°F"
         ):
             new_state = round(
-                convert_temperature(
+                TemperatureConerter.convert(
                     temperature=float(self.state),
-                    from_unit=TEMP_CELSIUS,
-                    to_unit=TEMP_FAHRENHEIT,
+                    from_unit=UnitOfTemperature.CELSIUS,
+                    to_unit=UnitOfTemperature.FAHRENHEIT,
                 )
             )
             _LOGGER.debug(
@@ -422,10 +422,10 @@ class PlantMinTemperature(PlantMinMax):
             and new_attributes.get(ATTR_UNIT_OF_MEASUREMENT) == "°C"
         ):
             new_state = round(
-                convert_temperature(
+                TemperatureConerter.convert(
                     temperature=float(self.state),
-                    from_unit=TEMP_FAHRENHEIT,
-                    to_unit=TEMP_CELSIUS,
+                    from_unit=UnitOfTemperature.FAHRENHEIT,
+                    to_unit=UnitOfTemperature.CELSIUS,
                 )
             )
             _LOGGER.debug(
@@ -441,10 +441,10 @@ class PlantMinTemperature(PlantMinMax):
             and new_attributes.get(ATTR_UNIT_OF_MEASUREMENT) == "°F"
         ):
             new_state = round(
-                convert_temperature(
+                TemperatureConerter.convert(
                     temperature=float(self.state),
-                    from_unit=TEMP_CELSIUS,
-                    to_unit=TEMP_FAHRENHEIT,
+                    from_unit=UnitOfTemperature.CELSIUS,
+                    to_unit=UnitOfTemperature.FAHRENHEIT,
                 )
             )
             _LOGGER.debug(

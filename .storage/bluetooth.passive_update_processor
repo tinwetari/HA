@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "bluetooth.passive_update_processor",
+  "data": {
+    "d8f381d72a9d584a466365e598706c21": {
+      "binary_sensor": {
+        "devices": {},
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {},
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      }
+    },
+    "f3badca96fc1d663eb1a407f36f1a133": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "Plant Sensor 5A63",
+            "manufacturer": "Xiaomi",
+            "model": "HHCCJCY01"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "Plant Sensor 5A63",
+            "manufacturer": "Xiaomi",
+            "model": "HHCCJCY01"
+          }
+        },
+        "entity_descriptions": {
+          "illuminance___": {
+            "key": "illuminance_lx",
+            "device_class": "illuminance",
+            "native_unit_of_measurement": "lx",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_category": "diagnostic",
+            "entity_registry_enabled_default": false,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          },
+          "moisture___": {
+            "key": "moisture_%",
+            "device_class": "moisture",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "conductivity___": {
+            "key": "µS/cm",
+            "native_unit_of_measurement": "µS/cm",
+            "state_class": "measurement"
+          },
+          "temperature___": {
+            "key": "temperature_°C",
+            "device_class": "temperature",
+            "native_unit_of_measurement": "°C",
+            "state_class": "measurement"
+          },
+          "battery___": {
+            "key": "battery_%",
+            "device_class": "battery",
+            "entity_category": "diagnostic",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "illuminance___": "Illuminance",
+          "signal_strength___": "Signal Strength",
+          "moisture___": "Moisture",
+          "conductivity___": "Conductivity",
+          "temperature___": "Temperature",
+          "battery___": "Battery"
+        },
+        "entity_data": {
+          "illuminance___": 724,
+          "signal_strength___": -66,
+          "moisture___": 4,
+          "conductivity___": 0,
+          "temperature___": 22.2,
+          "battery___": 0
+        }
+      }
+    },
+    "dfdae574056ae682a18edc3ca5d967dd": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "Plant Sensor 53BB",
+            "manufacturer": "Xiaomi",
+            "model": "HHCCJCY01"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "Plant Sensor 53BB",
+            "manufacturer": "Xiaomi",
+            "model": "HHCCJCY01"
+          }
+        },
+        "entity_descriptions": {
+          "illuminance___": {
+            "key": "illuminance_lx",
+            "device_class": "illuminance",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "lx",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_category": "diagnostic",
+            "entity_registry_enabled_default": false,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          },
+          "moisture___": {
+            "key": "moisture_%",
+            "device_class": "moisture",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "conductivity___": {
+            "key": "µS/cm",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "µS/cm",
+            "state_class": "measurement"
+          },
+          "temperature___": {
+            "key": "temperature_°C",
+            "device_class": "temperature",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "°C",
+            "state_class": "measurement"
+          },
+          "battery___": {
+            "key": "battery_%",
+            "device_class": "battery",
+            "entity_category": "diagnostic",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "illuminance___": "Illuminance",
+          "signal_strength___": "Signal Strength",
+          "moisture___": "Moisture",
+          "conductivity___": "Conductivity",
+          "temperature___": "Temperature",
+          "battery___": "Battery"
+        },
+        "entity_data": {
+          "illuminance___": 143,
+          "signal_strength___": -50,
+          "moisture___": 6,
+          "conductivity___": 271,
+          "temperature___": 22.0,
+          "battery___": 0
+        }
+      }
+    },
+    "a3c314af3c0a4cfb9605b7f230676e82": {
+      "sensor": {
+        "devices": {},
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      }
+    }
+  }
+}
