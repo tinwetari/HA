@@ -78,7 +78,7 @@
               {
                 "layout": "icon|name_state",
                 "name": "⌂ {{ states('sensor.living_room_hygrometer_temperature') }}°C",
-                "state": "{{ state_attr('weather.openweathermap','temperature') }}°C",
+                "state": "{{ state_attr('weather.openweathermap_2','temperature') }}°C",
                 "image": "{% set mapper =\n  { 'breezy':'cloudy',\n    'clear-night':'night',\n    'clear':'day',\n    'mostly-clear':'day',\n    'clear-day':'day',\n    'cloudy':'cloudy',\n    'fog':'fog',\n    'hail':'rainy-7',\n    'haze':'haze',\n    'lightning':'thunder',\n    'mostly-cloudy':'cloudy',\n    'partlycloudy':'cloudy-day-3',\n    'partly-cloudy-day':'partly-cloudy-day',\n    'partly-cloudy-night':'partly-cloudy-night',\n    'rain':'rainy-4',\n    'scattered-showers':'rainy-3',\n    'showers':'rainy-6',\n    'sleet':'sleet',\n    'snow':'snowy-6',\n    'mostly-sunny':'day',\n    'sunny':'day',\n    'thunderstorm':'thunder',\n    'tornado':'tornado',\n    'wind':'wind',\n    'windy':'wind'} %}\n{% set state = states('weather.openweathermap') %}\n{% set weather = mapper[state] if state in mapper else 'weather' %}\n{% set path = '/local/icons/weather_icons/animated/' %}\n{% set ext = '.svg'%}\n  {{[path,weather,ext]|join('')}}\n",
                 "styles": {
                   "name": {
@@ -814,7 +814,7 @@
               "button-background": "transparent",
               "title-card": {
                 "type": "custom:slider-button-card",
-                "entity": "light.bedroom",
+                "entity": "light.office",
                 "slider": {
                   "direction": "left-right",
                   "background": "gradient",
@@ -878,7 +878,7 @@
                         },
                         {
                           "type": "custom:rgb-light-card",
-                          "entity": "light.bedroom",
+                          "entity": "light.office",
                           "justify": "around",
                           "size": 23,
                           "colors": [
@@ -1127,7 +1127,7 @@
                               "style": "div.divider { \n  display: none;\n}\ndiv.label { \n  margin-top: -12px;\n  margin-bottom: 10px;\n  font-size: 17px;\n  font-weight: 600\n}\n"
                             },
                             {
-                              "entity": "sensor.poco_f3_geocoded_location",
+                              "entity": "sensor.pixel_8_pro_geocoded_location",
                               "name": "‎",
                               "icon": "none",
                               "style": "* {\n  display: inline !important;\n  position: absolute !important;\n  top: 0px;\n  left: 0 !important;\n  width: 94%;\n  text-align: left !important;\n  padding: 0 0 0 8px; \n  margin-top: -3px;\n  opacity: 0.8;\n  font-size: 0.9em;\n  line-height: 1.4em;\n}\nstyle {\n  opacity: 0 !important;\n}\n"
