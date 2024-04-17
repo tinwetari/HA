@@ -143,6 +143,8 @@ google_assistant:
   exposed_domains:
     - light
     - media_player
+    - fan
+    - climate
 
 group:
   #plants:
