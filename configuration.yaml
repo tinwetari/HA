@@ -142,7 +142,6 @@ google_assistant:
   report_state: true
   exposed_domains:
     - light
-    - media_player
     - fan
     - climate
 
