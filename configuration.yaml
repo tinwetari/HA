@@ -99,32 +99,9 @@ sensor:
     start: "{{ now().replace(hour=0, minute=0, second=0) }}"
     end: "{{ now() }}"
 
-  #sky_q
 
-  - platform: template
-    sensors:
-      sky_q_on:
-        value_template: >
-          {% if is_state("media_player.sky_q","playing") or is_state("media_player.sky_q","paused") %}
-            playing
-          {% else %}
-            off
-          {% endif %}
 
-#lights
-light:
-  - platform: group
-    name: Living Room
-    entities:
-      - light.ceiling
-      - light.floor_lamp
 
-  - platform: group
-    name: Bedroom
-    entities:
-      - light.bedside_kaari
-      - light.bedroom_ceiling
-      - light.bedside_jesus
 
   - platform: group
     name: All
