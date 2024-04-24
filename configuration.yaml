@@ -100,19 +100,6 @@ sensor:
     end: "{{ now() }}"
 
 
-
-
-
-  - platform: group
-    name: All
-    entities:
-      - light.bedside_kaari
-      - light.bedside_jesus
-      - light.bedroom_ceiling
-      - light.kitchen
-      - light.ceiling
-      - light.floor_lamp
-
 google_assistant:
   project_id: home-assistant-18814
   service_account: !include SERVICE_ACCOUNT.json
@@ -130,13 +117,4 @@ group:
   #    - plant.kentia_palm
   #    - plant.leaf_fig_tree
   #    - plant.parlor_palm
-  all:
-    name: all
-    entities:
-      - light.bedside_kaari
-      - light.bedside_jesus
-      - light.bedroom_ceiling
-      - light.kitchen
-      - light.ceiling
-      - light.floor_lamp
-      - media_player.sky_q
+
