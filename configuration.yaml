@@ -99,7 +99,6 @@ sensor:
     start: "{{ now().replace(hour=0, minute=0, second=0) }}"
     end: "{{ now() }}"
 
-
 google_assistant:
   project_id: home-assistant-18814
   service_account: !include SERVICE_ACCOUNT.json
@@ -108,6 +107,7 @@ google_assistant:
     - light
     - fan
     - climate
+    - media_player
 
 group:
   #plants:
@@ -117,4 +117,3 @@ group:
   #    - plant.kentia_palm
   #    - plant.leaf_fig_tree
   #    - plant.parlor_palm
-

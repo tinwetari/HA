@@ -79,8 +79,8 @@
           "impedance___": "Impedance"
         },
         "entity_data": {
-          "mass_non_stabilized___": 3.6,
-          "signal_strength___": -69,
+          "mass_non_stabilized___": 3.65,
+          "signal_strength___": -71,
           "mass___": 58.75,
           "impedance___": 680
         }

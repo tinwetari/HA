@@ -746,7 +746,7 @@
                           "icon": "phu:dyson-floor"
                         },
                         {
-                          "entity": "media_player.living_room_tv",
+                          "entity": "media_player.serif_tv",
                           "icon": "phu:chromecast",
                           "type": "custom:mini-media-player",
                           "hide": {
