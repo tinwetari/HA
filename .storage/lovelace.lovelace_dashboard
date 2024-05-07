@@ -78,7 +78,7 @@
               {
                 "layout": "icon|name_state",
                 "name": "⌂ {{ states('sensor.airbot_temperature') }}°C",
-                "state": "{{ state_attr('weather.openweathermap_2','temperature') }}°C",
+                "state": "{{ state_attr('weather.openweathermap','temperature') }}°C",
                 "image": "{% set mapper =\n  { 'breezy':'cloudy',\n    'clear-night':'night',\n    'clear':'day',\n    'mostly-clear':'day',\n    'clear-day':'day',\n    'cloudy':'cloudy',\n    'fog':'fog',\n    'hail':'rainy-7',\n    'haze':'haze',\n    'lightning':'thunder',\n    'mostly-cloudy':'cloudy',\n    'partlycloudy':'cloudy-day-3',\n    'partly-cloudy-day':'partly-cloudy-day',\n    'partly-cloudy-night':'partly-cloudy-night',\n    'rain':'rainy-4',\n    'scattered-showers':'rainy-3',\n    'showers':'rainy-6',\n    'sleet':'sleet',\n    'snow':'snowy-6',\n    'mostly-sunny':'day',\n    'sunny':'day',\n    'thunderstorm':'thunder',\n    'tornado':'tornado',\n    'wind':'wind',\n    'windy':'wind'} %}\n{% set state = states('weather.openweathermap') %}\n{% set weather = mapper[state] if state in mapper else 'weather' %}\n{% set path = '/local/icons/weather_icons/animated/' %}\n{% set ext = '.svg'%}\n  {{[path,weather,ext]|join('')}}\n",
                 "styles": {
                   "name": {
@@ -419,7 +419,7 @@
                           "cards": [
                             {
                               "type": "custom:weather-card",
-                              "entity": "weather.openweathermap_2",
+                              "entity": "weather.openweathermap",
                               "number_of_forecasts": "3",
                               "current": false,
                               "details": false,
@@ -585,7 +585,8 @@
               "button-background": "transparent",
               "title-card": {
                 "type": "custom:slider-button-card",
-                "entity": "light.living_room",
+                "entity": "light.group_living_room",
+                "name": "Living Room",
                 "slider": {
                   "direction": "left-right",
                   "background": "gradient",
@@ -622,7 +623,7 @@
                       "entities": [
                         {
                           "type": "custom:light-entity-card",
-                          "entity": "light.living_room",
+                          "entity": "light.group_living_room",
                           "shorten_cards": false,
                           "consolidate_entities": true,
                           "child_card": true,
@@ -720,10 +721,6 @@
                           "label": "Lights"
                         },
                         {
-                          "entity": "light.floor_lamp",
-                          "icon": "mdi:floor-lamp-torchiere-variant"
-                        },
-                        {
                           "show_name": true,
                           "show_icon": true,
                           "entity": "light.living_room_ceiling",
@@ -794,7 +791,8 @@
               "button-background": "transparent",
               "title-card": {
                 "type": "custom:slider-button-card",
-                "entity": "light.bedroom",
+                "entity": "light.group_bedroom",
+                "name": "Bedroom",
                 "slider": {
                   "direction": "left-right",
                   "background": "gradient",
@@ -851,7 +849,7 @@
                           "speed_icon": "speedometer",
                           "intensity_icon": "transit-connection-horizontal",
                           "type": "custom:light-entity-card",
-                          "entity": "light.bedroom",
+                          "entity": "light.group_bedroom",
                           "smooth_color_wheel": true,
                           "effects_list": false,
                           "style": "ha-card {\n  margin: 14px 8px !important;\n}\nha-card > div.light-entity-card__header > div.light-entity-card__title {\n  font-size: 14px !important;\n  font-weight: 500;\n}\n"
@@ -977,7 +975,8 @@
               "button-background": "transparent",
               "title-card": {
                 "type": "custom:slider-button-card",
-                "entity": "light.office_ceiling",
+                "entity": "light.group_office",
+                "name": "Office",
                 "slider": {
                   "direction": "left-right",
                   "background": "gradient",
@@ -1029,7 +1028,7 @@
                           "full_width_sliders": true,
                           "brightness_icon": "weather-sunny",
                           "type": "custom:light-entity-card",
-                          "entity": "light.office_ceiling",
+                          "entity": "light.group_office",
                           "smooth_color_wheel": true,
                           "effects_list": false,
                           "style": "ha-card {\n  margin: 14px 8px !important;\n}\nha-card > div.light-entity-card__header > div.light-entity-card__title {\n  font-size: 14px !important;\n  font-weight: 500;\n}\n"
@@ -1047,7 +1046,7 @@
                           "label": "Gadgets"
                         },
                         {
-                          "entity": "sensor.kitchen_switch_battery",
+                          "entity": "sensor.office_switch_battery",
                           "name": "Switch Battery",
                           "icon": "mdi:button-pointer"
                         }
@@ -1203,6 +1202,22 @@
                 }
               ],
               "style": ":host {\n  position: sticky !important;\n  bottom: 26px;\n  margin-bottom: 10px !important;\n  animation: 1.2s position ease-in-out;\n}\n@keyframes position {\n  0% { bottom: -80px; }\n  20% { bottom: -80px; }\n  70% { bottom: 26px; }\n  90% { bottom: 24px; }\n  100% { bottom: 26px; }\n}\nha-card { \n  background: none;\n  border-radius: 26px !important;\n  margin-top: 50%;\n}\n:host:before {\n  content: '';\n  display: block;\n  position: absolute;\n  bottom: -26px;\n  left: -8px;\n  padding-right: 16px;\n  height: 130px;\n  width: 100%; \n  background: linear-gradient(180deg, rgba(45, 56, 76, 0) 0%, rgba(35, 46, 66, 0.85) 50%);\n  pointer-events: none;\n  animation: 1.2s opacity ease-in-out;\n}\n@keyframes opacity {\n  0% { opacity: 0; }\n  20% { opacity: 0; }\n  100% { opacity: 1; }\n}\n### The sticky position don't work with Decluttering card\n### This is why I have to add the CSS here\n### If you don't use the UI you can use YAML anchors instead\n"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.bedroom"
+            },
+            {
+              "type": "custom:mini-media-player",
+              "entity": "media_player.spotify"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "switch.bedroom_continuous_monitoring",
+                "switch.bedroom_night_mode"
+              ],
+              "title": "Airbot"
             }
           ]
         },

@@ -79,10 +79,80 @@
           "impedance___": "Impedance"
         },
         "entity_data": {
-          "mass_non_stabilized___": 59.25,
-          "signal_strength___": -70,
-          "mass___": 59.25,
-          "impedance___": 622
+          "mass_non_stabilized___": 3.6,
+          "signal_strength___": -69,
+          "mass___": 58.75,
+          "impedance___": 680
+        }
+      }
+    },
+    "435ce66abf3c80b0b943f68d04ec067a": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "Mi Body Composition Scale (C720)",
+            "manufacturer": "Xiaomi",
+            "model": "XMTZC02HM/XMTZC05HM/NUN4049CN"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "Mi Body Composition Scale (C720)",
+            "manufacturer": "Xiaomi",
+            "model": "XMTZC02HM/XMTZC05HM/NUN4049CN"
+          }
+        },
+        "entity_descriptions": {
+          "mass_non_stabilized___": {
+            "key": "mass_non_stabilized_kg",
+            "device_class": "weight",
+            "entity_category": "diagnostic",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "kg",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_category": "diagnostic",
+            "entity_registry_enabled_default": false,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          },
+          "mass___": {
+            "key": "mass_kg",
+            "device_class": "weight",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "kg",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "mass_non_stabilized___": "Mass Non Stabilized",
+          "signal_strength___": "Signal Strength",
+          "mass___": "Mass"
+        },
+        "entity_data": {
+          "mass_non_stabilized___": 0.25,
+          "signal_strength___": -98,
+          "mass___": 0.25
         }
       }
     }
