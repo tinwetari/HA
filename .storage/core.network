@@ -3,8 +3,6 @@
   "minor_version": 1,
   "key": "core.network",
   "data": {
-    "configured_adapters": [
-      "end0"
-    ]
+    "configured_adapters": []
   }
 }
